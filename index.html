@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.stage {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mount"></div>
+	
+		<script>
+
+			function begin(context) {
+				alert('Yay, WebGL supported: ' + context);
+			}
+
+			var canvas = document.createElement('canvas');
+			canvas.setAttribute('width', 400);
+			canvas.setAttribute('height', 400);
+			canvas.className = 'stage';
+			document.getElementById('mount').appendChild(canvas);
+
+			var context = canvas.getContext('webgl');
+
+			context ? begin(context) : alert('Sorry, your browser does not support WebGL');
+		</script>
+	</body>
+</html>
