@@ -2,29 +2,151 @@
 <html>
 	<head>
 		<style>
+
+			canvas {
+				background: #e0e0e0;
+			}
+
 			.stage {
 				background-color: red;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="mount"></div>
-	
+		<!-- <div id="mount"></div> -->
+
+		<script data-id="vertex-shader" type="x-vertex-shader">
+			attribute vec2 aVertex;
+			attribute vec2 aUV; 
+			varying vec2 vTex;
+			uniform vec2 pos;
+			void main(void) {
+				gl_Position = vec4(aVertex + pos, 0.0, 1.0);
+				vTex = aUV;
+			}
+		</script>
+
+		<script data-id="fragment-shader" type="x-fragment-shader">
+			precision highp float;
+			varying vec2 vTex;
+			uniform sampler2D sampler0;
+			void main(void) {
+				gl_FragColor = texture2D(sampler0, vTex);
+			}
+		</script>
+
+		<canvas id="canvas" width="1024" height="768"></canvas>
 		<script>
 
-			function begin(context) {
-				alert('Yay, WebGL supported: ' + context);
+			// 'use strict';
+
+			// function createCanvas(width, height, className) {
+			// 	var canvas = document.createElement('canvas');
+			// 	canvas.setAttribute('width', width);
+			// 	canvas.setAttribute('height', height);
+			// 	canvas.className = className;
+			// 	return canvas;
+			// }
+
+			// function mount(canvas) {
+			// 	document.getElementById('mount').appendChild(canvas);
+			// }
+
+			// function go(ctx) {
+			// 	alert('Yay, WebGL supported: ' + ctx);
+			// }
+
+			// var canvas = createCanvas(400, 400, 'stage');
+			// mount(canvas);
+
+			// var ctx = canvas.getContext('webgl');
+
+			// ctx ? go(ctx) : alert('Sorry, your browser does not support WebGL');
+
+			'use strict';
+
+			// document.querySelectorAll('input[value][type="checkbox"]
+
+			function getVertexShaderFromTemplate(id)
+			{
+				return document.querySelector('script[data-id="' + id + '"][type="x-vertex-shader"]')
+					.textContent;
 			}
 
-			var canvas = document.createElement('canvas');
-			canvas.setAttribute('width', 400);
-			canvas.setAttribute('height', 400);
-			canvas.className = 'stage';
-			document.getElementById('mount').appendChild(canvas);
+			function getFragmentShaderFromTemplate(id)
+			{
+				return document.querySelector('script[data-id="' + id + '"][type="x-fragment-shader"]')
+					.textContent;
+			}
 
-			var context = canvas.getContext('webgl');
+			// console.log(getVertexShaderFromTemplate('vertex-shader'));
+			// console.log(getFragmentShaderFromTemplate('fragment-shader'));
 
-			context ? begin(context) : alert('Sorry, your browser does not support WebGL');
+		    var canvas = document.getElementById('canvas');
+		    var ctx = canvas.getContext('webgl');
+
+		    // Create shaders
+		    var vertextShaderSource = getVertexShaderFromTemplate('vertex-shader');
+		    var fragmentShaderSource = getFragmentShaderFromTemplate('fragment-shader');
+
+		    var vertextShader = ctx.createShader(ctx.VERTEX_SHADER);
+		    var fragmentShader = ctx.createShader(ctx.FRAGMENT_SHADER);
+		    ctx.shaderSource(vertextShader, vertextShaderSource);
+		    ctx.shaderSource(fragmentShader, fragmentShaderSource);
+		    ctx.compileShader(vertextShader);
+		    ctx.compileShader(fragmentShader);
+
+		    var program = ctx.createProgram();
+		    ctx.attachShader(program, vertextShader);
+		    ctx.attachShader(program, fragmentShader);
+
+		    ctx.linkProgram(program);
+		    ctx.useProgram(program);
+
+		    ctx.viewport(0, 0, 512, 512);
+
+		    var vertexBuffer = ctx.createBuffer();
+		    ctx.bindBuffer(ctx.ARRAY_BUFFER, vertexBuffer);
+		    ctx.bufferData(
+		    	ctx.ARRAY_BUFFER,
+		    	new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]),
+		    	ctx.STATIC_DRAW
+		    );
+
+		    var textureBuffer = ctx.createBuffer();
+		    ctx.bindBuffer(ctx.ARRAY_BUFFER, textureBuffer);
+		    ctx.bufferData(
+		    	ctx.ARRAY_BUFFER,
+		    	new Float32Array([0, 1, 0, 0, 1, 0, 1, 1]),
+		    	ctx.STATIC_DRAW
+		    );
+
+		    var vloc = ctx.getAttribLocation(program, 'aVertex'); 
+		    var tloc = ctx.getAttribLocation(program, 'aUV');
+		    var uLoc = ctx.getUniformLocation(program, 'pos');
+
+		    var img = new Image();
+		    img.src = 'image.png';
+
+		    img.onload = function () {
+		        var texture = ctx.createTexture();
+		        ctx.bindTexture(ctx.TEXTURE_2D, texture);
+		        ctx.texParameteri(ctx.TEXTURE_2D, ctx.TEXTURE_MIN_FILTER, ctx.NEAREST);
+		        ctx.texParameteri(ctx.TEXTURE_2D, ctx.TEXTURE_MAG_FILTER, ctx.NEAREST);
+		        ctx.texImage2D(ctx.TEXTURE_2D, 0, ctx.RGBA, ctx.RGBA, ctx.UNSIGNED_BYTE, this);
+
+		        ctx.enableVertexAttribArray(vloc);
+		        ctx.bindBuffer(ctx.ARRAY_BUFFER, vertexBuffer);
+		        ctx.vertexAttribPointer(vloc, 2, ctx.FLOAT, false, 0, 0);
+
+		        ctx.enableVertexAttribArray(tloc);
+		        ctx.bindBuffer(ctx.ARRAY_BUFFER, textureBuffer);
+		        ctx.bindTexture(ctx.TEXTURE_2D, texture);
+		        ctx.vertexAttribPointer(tloc, 2, ctx.FLOAT, false, 0, 0);
+
+		        ctx.drawArrays(ctx.TRIANGLE_FAN, 0, 4);
+		    };
+
 		</script>
 	</body>
 </html>
