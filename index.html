@@ -1,152 +1,201 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<style>
+  <head>
+    <style>
+      .stage {
+        background-color: red;
+      }
+    </style>
+    <script src="lib.js"></script>
+  </head>
+  <body>
+    <div id="mount"></div>
 
-			canvas {
-				background: #e0e0e0;
-			}
+    <script data-id="2d-vertex" type="x-shader/x-vertex">
 
-			.stage {
-				background-color: red;
-			}
-		</style>
-	</head>
-	<body>
-		<!-- <div id="mount"></div> -->
+      attribute vec2 a_position;
+      uniform vec2 u_resolution;
+       
+      void main() {
+        // Convert the rectangle from pixels to 0.0 to 1.0
+        vec2 zeroToOne = a_position / u_resolution;
 
-		<script data-id="vertex-shader" type="x-vertex-shader">
-			attribute vec2 aVertex;
-			attribute vec2 aUV; 
-			varying vec2 vTex;
-			uniform vec2 pos;
-			void main(void) {
-				gl_Position = vec4(aVertex + pos, 0.0, 1.0);
-				vTex = aUV;
-			}
-		</script>
+        // Convert from 0->1 to 0->2
+        vec2 zeroToTwo = zeroToOne * 2.0;
 
-		<script data-id="fragment-shader" type="x-fragment-shader">
-			precision highp float;
-			varying vec2 vTex;
-			uniform sampler2D sampler0;
-			void main(void) {
-				gl_FragColor = texture2D(sampler0, vTex);
-			}
-		</script>
+        // Convert from 0->2 to -1->+1 (clipspace)
+        vec2 clipSpace = zeroToTwo - 1.0;
 
-		<canvas id="canvas" width="1024" height="768"></canvas>
-		<script>
+        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        // gl_Position = vec4(clipSpace, 0, 1);
+      }
+    </script>
+     
+    <script data-id="2d-fragment" type="x-shader/x-fragment">
 
-			// 'use strict';
+      precision mediump float;
 
-			// function createCanvas(width, height, className) {
-			// 	var canvas = document.createElement('canvas');
-			// 	canvas.setAttribute('width', width);
-			// 	canvas.setAttribute('height', height);
-			// 	canvas.className = className;
-			// 	return canvas;
-			// }
+      uniform vec4 u_color;
 
-			// function mount(canvas) {
-			// 	document.getElementById('mount').appendChild(canvas);
-			// }
+      void main() {
+        gl_FragColor = u_color; // vec4(0, 0, 1, 1);
+      }
+    </script>
 
-			// function go(ctx) {
-			// 	alert('Yay, WebGL supported: ' + ctx);
-			// }
+    <!--
+    <script data-id="vertex" type="x-shader/x-vertex">
+      attribute vec2 aVertex;
+      attribute vec2 aUV; 
+      varying vec2 vTex;
+      uniform vec2 pos;
+      void main(void) {
+        gl_Position = vec4(aVertex + pos, 0.0, 1.0);
+        vTex = aUV;
+      }
+    </script>
 
-			// var canvas = createCanvas(400, 400, 'stage');
-			// mount(canvas);
+    <script data-id="fragment" type="x-shader/x-fragment">
+      precision highp float;
+      varying vec2 vTex;
+      uniform sampler2D sampler0;
+      void main(void) {
+        gl_FragColor = texture2D(sampler0, vTex);
+      }
+    </script>
+    -->
 
-			// var ctx = canvas.getContext('webgl');
+    <script>
 
-			// ctx ? go(ctx) : alert('Sorry, your browser does not support WebGL');
+      'use strict';
 
-			'use strict';
+      var CANVAS_WIDTH = 400;
+      var CANVAS_HEIGHT = 300;
+      var VIEWPORT_WIDTH = 400;
+      var VIEWPORT_HEIGHT = 300;
 
-			// document.querySelectorAll('input[value][type="checkbox"]
+      function createShaders(gl, vertexId, fragmentId) {
 
-			function getVertexShaderFromTemplate(id)
-			{
-				return document.querySelector('script[data-id="' + id + '"][type="x-vertex-shader"]')
-					.textContent;
-			}
+        var vertexShaderSource = getVertexShaderFromTemplate(vertexId);
+        var fragmentShaderSource = getFragmentShaderFromTemplate(fragmentId);
 
-			function getFragmentShaderFromTemplate(id)
-			{
-				return document.querySelector('script[data-id="' + id + '"][type="x-fragment-shader"]')
-					.textContent;
-			}
+        var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(vertexShader, vertexShaderSource);
+        gl.shaderSource(fragmentShader, fragmentShaderSource);
+        gl.compileShader(vertexShader);
+        gl.compileShader(fragmentShader);
 
-			// console.log(getVertexShaderFromTemplate('vertex-shader'));
-			// console.log(getFragmentShaderFromTemplate('fragment-shader'));
+        return {
+          vertex: vertexShader,
+          fragment: fragmentShader
+        };
+      }
 
-		    var canvas = document.getElementById('canvas');
-		    var ctx = canvas.getContext('webgl');
+      function createProgram(gl, shaders) {
 
-		    // Create shaders
-		    var vertextShaderSource = getVertexShaderFromTemplate('vertex-shader');
-		    var fragmentShaderSource = getFragmentShaderFromTemplate('fragment-shader');
+        var program = gl.createProgram();
+        gl.attachShader(program, shaders.vertex);
+        gl.attachShader(program, shaders.fragment);
 
-		    var vertextShader = ctx.createShader(ctx.VERTEX_SHADER);
-		    var fragmentShader = ctx.createShader(ctx.FRAGMENT_SHADER);
-		    ctx.shaderSource(vertextShader, vertextShaderSource);
-		    ctx.shaderSource(fragmentShader, fragmentShaderSource);
-		    ctx.compileShader(vertextShader);
-		    ctx.compileShader(fragmentShader);
+        gl.linkProgram(program);
+        gl.useProgram(program);
 
-		    var program = ctx.createProgram();
-		    ctx.attachShader(program, vertextShader);
-		    ctx.attachShader(program, fragmentShader);
+        return program;
+      }
 
-		    ctx.linkProgram(program);
-		    ctx.useProgram(program);
+      function setViewport(gl, x, y, width, height) {
+        gl.viewport(x, y, width, height);
+      }
 
-		    ctx.viewport(0, 0, 512, 512);
+      function go(canvas, gl) {
 
-		    var vertexBuffer = ctx.createBuffer();
-		    ctx.bindBuffer(ctx.ARRAY_BUFFER, vertexBuffer);
-		    ctx.bufferData(
-		    	ctx.ARRAY_BUFFER,
-		    	new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]),
-		    	ctx.STATIC_DRAW
-		    );
+        var shaders = createShaders(gl, '2d-vertex', '2d-fragment');
+        var program = createProgram(gl, shaders);
 
-		    var textureBuffer = ctx.createBuffer();
-		    ctx.bindBuffer(ctx.ARRAY_BUFFER, textureBuffer);
-		    ctx.bufferData(
-		    	ctx.ARRAY_BUFFER,
-		    	new Float32Array([0, 1, 0, 0, 1, 0, 1, 1]),
-		    	ctx.STATIC_DRAW
-		    );
+        setViewport(gl, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+ 
+        // Look up where the vertex data needs to go
+        var positionLocation = gl.getAttribLocation(program, 'a_position');
+         
+        // Set the resolution
+        var resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+        gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
 
-		    var vloc = ctx.getAttribLocation(program, 'aVertex'); 
-		    var tloc = ctx.getAttribLocation(program, 'aUV');
-		    var uLoc = ctx.getUniformLocation(program, 'pos');
+        // Set the color
+        var colorLocation = gl.getUniformLocation(program, 'u_color');
+        gl.uniform4f(colorLocation, Math.random(), Math.random(), Math.random(), 1);
 
-		    var img = new Image();
-		    img.src = 'image.png';
+        // Create a buffer and put a single clipspace rectangle in it (2 triangles)
+        var buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(
+            gl.ARRAY_BUFFER,
+            new Float32Array(
+              [
+                20, 20,
+                200, 20,
+                20, 200,
+                20, 200,
+                200, 20,
+                200, 200
+              ]
+            ),
+            gl.STATIC_DRAW
+        );
+        gl.enableVertexAttribArray(positionLocation);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+         
+        // Draw
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-		    img.onload = function () {
-		        var texture = ctx.createTexture();
-		        ctx.bindTexture(ctx.TEXTURE_2D, texture);
-		        ctx.texParameteri(ctx.TEXTURE_2D, ctx.TEXTURE_MIN_FILTER, ctx.NEAREST);
-		        ctx.texParameteri(ctx.TEXTURE_2D, ctx.TEXTURE_MAG_FILTER, ctx.NEAREST);
-		        ctx.texImage2D(ctx.TEXTURE_2D, 0, ctx.RGBA, ctx.RGBA, ctx.UNSIGNED_BYTE, this);
+        window.gl = gl;
 
-		        ctx.enableVertexAttribArray(vloc);
-		        ctx.bindBuffer(ctx.ARRAY_BUFFER, vertexBuffer);
-		        ctx.vertexAttribPointer(vloc, 2, ctx.FLOAT, false, 0, 0);
+        // var vertexBuffer = gl.createBuffer();
+        // gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        // gl.bufferData(
+        //   gl.ARRAY_BUFFER,
+        //   new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]),
+        //   gl.STATIC_DRAW
+        // );
 
-		        ctx.enableVertexAttribArray(tloc);
-		        ctx.bindBuffer(ctx.ARRAY_BUFFER, textureBuffer);
-		        ctx.bindTexture(ctx.TEXTURE_2D, texture);
-		        ctx.vertexAttribPointer(tloc, 2, ctx.FLOAT, false, 0, 0);
+        // var textureBuffer = gl.createBuffer();
+        // gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+        // gl.bufferData(
+        //   gl.ARRAY_BUFFER,
+        //   new Float32Array([0, 1, 0, 0, 1, 0, 1, 1]),
+        //   gl.STATIC_DRAW
+        // );
 
-		        ctx.drawArrays(ctx.TRIANGLE_FAN, 0, 4);
-		    };
+        // var vloc = gl.getAttribLocation(program, 'aVertex'); 
+        // var tloc = gl.getAttribLocation(program, 'aUV');
+        // var uLoc = gl.getUniformLocation(program, 'pos');
 
-		</script>
-	</body>
+        // loadImage('image.png', function (image) {
+
+        //   var texture = gl.createTexture();
+        //   gl.bindTexture(gl.TEXTURE_2D, texture);
+        //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        //   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+        //   gl.enableVertexAttribArray(vloc);
+        //   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        //   gl.vertexAttribPointer(vloc, 2, gl.FLOAT, false, 0, 0);
+
+        //   gl.enableVertexAttribArray(tloc);
+        //   gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+        //   gl.bindTexture(gl.TEXTURE_2D, texture);
+        //   gl.vertexAttribPointer(tloc, 2, gl.FLOAT, false, 0, 0);
+
+        //   // Draw!
+        //   gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+        // });
+      }
+
+      var canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, 'stage', '#mount');
+      var gl = canvas.getContext('webgl');
+      gl ? go(canvas, gl) : alert('Sorry, your browser does not support WebGL');
+
+    </script>
+  </body>
 </html>
