@@ -1,2 +1,2 @@
 # webgl-tilemap
-WebGL Tilemap with React
+WebGL Tilemap Experiment
