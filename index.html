@@ -3,7 +3,7 @@
   <head>
     <style>
       .stage {
-        background-color: red;
+        background-color: #f0f0f0;
       }
     </style>
     <script src="lib.js"></script>
@@ -12,57 +12,46 @@
     <div id="mount"></div>
 
     <script data-id="2d-vertex" type="x-shader/x-vertex">
-
+    
       attribute vec2 a_position;
+      attribute vec2 a_texCoord;
       uniform vec2 u_resolution;
-       
+      varying vec2 v_texCoord;
+
       void main() {
-        // Convert the rectangle from pixels to 0.0 to 1.0
-        vec2 zeroToOne = a_position / u_resolution;
+         // convert the rectangle from pixels to 0.0 to 1.0
+         vec2 zeroToOne = a_position / u_resolution;
 
-        // Convert from 0->1 to 0->2
-        vec2 zeroToTwo = zeroToOne * 2.0;
+         // convert from 0->1 to 0->2
+         vec2 zeroToTwo = zeroToOne * 2.0;
 
-        // Convert from 0->2 to -1->+1 (clipspace)
-        vec2 clipSpace = zeroToTwo - 1.0;
+         // convert from 0->2 to -1->+1 (clipspace)
+         vec2 clipSpace = zeroToTwo - 1.0;
 
-        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
-        // gl_Position = vec4(clipSpace, 0, 1);
+         gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+
+         // pass the texCoord to the fragment shader
+         // The GPU will interpolate this value between points.
+         v_texCoord = a_texCoord;
       }
+
     </script>
      
     <script data-id="2d-fragment" type="x-shader/x-fragment">
 
       precision mediump float;
 
-      uniform vec4 u_color;
+      // our texture
+      uniform sampler2D u_image;
+
+      // the texCoords passed in from the vertex shader.
+      varying vec2 v_texCoord;
 
       void main() {
-        gl_FragColor = u_color; // vec4(0, 0, 1, 1);
+         gl_FragColor = texture2D(u_image, v_texCoord);
       }
-    </script>
 
-    <!--
-    <script data-id="vertex" type="x-shader/x-vertex">
-      attribute vec2 aVertex;
-      attribute vec2 aUV; 
-      varying vec2 vTex;
-      uniform vec2 pos;
-      void main(void) {
-        gl_Position = vec4(aVertex + pos, 0.0, 1.0);
-        vTex = aUV;
-      }
     </script>
-
-    <script data-id="fragment" type="x-shader/x-fragment">
-      precision highp float;
-      varying vec2 vTex;
-      uniform sampler2D sampler0;
-      void main(void) {
-        gl_FragColor = texture2D(sampler0, vTex);
-      }
-    </script>
-    -->
 
     <script>
 
@@ -107,94 +96,86 @@
         gl.viewport(x, y, width, height);
       }
 
-      function go(canvas, gl) {
+      function setRectangle(gl, x, y, width, height) {
+        var x1 = x;
+        var x2 = x + width;
+        var y1 = y;
+        var y2 = y + height;
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+          x1, y1,
+          x2, y1,
+          x1, y2,
+          x1, y2,
+          x2, y1,
+          x2, y2]), gl.STATIC_DRAW);
+      }
 
-        var shaders = createShaders(gl, '2d-vertex', '2d-fragment');
-        var program = createProgram(gl, shaders);
+      function go(canvas, gl, image) {
 
-        setViewport(gl, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
- 
-        // Look up where the vertex data needs to go
+        // look up where the vertex data needs to go.
         var positionLocation = gl.getAttribLocation(program, 'a_position');
-         
-        // Set the resolution
+        var texCoordLocation = gl.getAttribLocation(program, 'a_texCoord');
+
+        // provide texture coordinates for the rectangle.
+        var texCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+          0.0,  0.0,
+          1.0,  0.0,
+          0.0,  1.0,
+          0.0,  1.0,
+          1.0,  0.0,
+          1.0,  1.0]), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(texCoordLocation);
+        gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
+
+        // Create a texture.
+        var texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+
+        // Set the parameters so we can render any size image.
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+        // Upload the image into the texture.
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+        // lookup uniforms
         var resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+
+        // set the resolution
         gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
 
-        // Set the color
-        var colorLocation = gl.getUniformLocation(program, 'u_color');
-        gl.uniform4f(colorLocation, Math.random(), Math.random(), Math.random(), 1);
-
-        // Create a buffer and put a single clipspace rectangle in it (2 triangles)
+        // Create a buffer for the position of the rectangle corners.
         var buffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.bufferData(
-            gl.ARRAY_BUFFER,
-            new Float32Array(
-              [
-                20, 20,
-                200, 20,
-                20, 200,
-                20, 200,
-                200, 20,
-                200, 200
-              ]
-            ),
-            gl.STATIC_DRAW
-        );
         gl.enableVertexAttribArray(positionLocation);
         gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-         
-        // Draw
+
+        // Set a rectangle the same size as the image.
+        setRectangle(gl, 0, 0, image.width, image.height);
+
+        // Draw the rectangle.
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-        window.gl = gl;
-
-        // var vertexBuffer = gl.createBuffer();
-        // gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-        // gl.bufferData(
-        //   gl.ARRAY_BUFFER,
-        //   new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]),
-        //   gl.STATIC_DRAW
-        // );
-
-        // var textureBuffer = gl.createBuffer();
-        // gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
-        // gl.bufferData(
-        //   gl.ARRAY_BUFFER,
-        //   new Float32Array([0, 1, 0, 0, 1, 0, 1, 1]),
-        //   gl.STATIC_DRAW
-        // );
-
-        // var vloc = gl.getAttribLocation(program, 'aVertex'); 
-        // var tloc = gl.getAttribLocation(program, 'aUV');
-        // var uLoc = gl.getUniformLocation(program, 'pos');
-
-        // loadImage('image.png', function (image) {
-
-        //   var texture = gl.createTexture();
-        //   gl.bindTexture(gl.TEXTURE_2D, texture);
-        //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        //   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        //   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-
-        //   gl.enableVertexAttribArray(vloc);
-        //   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-        //   gl.vertexAttribPointer(vloc, 2, gl.FLOAT, false, 0, 0);
-
-        //   gl.enableVertexAttribArray(tloc);
-        //   gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
-        //   gl.bindTexture(gl.TEXTURE_2D, texture);
-        //   gl.vertexAttribPointer(tloc, 2, gl.FLOAT, false, 0, 0);
-
-        //   // Draw!
-        //   gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-        // });
       }
 
       var canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, 'stage', '#mount');
       var gl = canvas.getContext('webgl');
-      gl ? go(canvas, gl) : alert('Sorry, your browser does not support WebGL');
+
+      if (gl) {
+        var shaders = createShaders(gl, '2d-vertex', '2d-fragment');
+        var program = createProgram(gl, shaders);
+        setViewport(gl, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+
+        loadImage('image.png', function (image) {
+          go(canvas, gl, image);
+        });
+
+      } else {
+        alert('Sorry, your browser does not support WebGL');
+      }
 
     </script>
   </body>
