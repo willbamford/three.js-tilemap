@@ -17,5 +17,8 @@
   },
   "homepage": "https://github.com/WebSeed/webgl-tilemap",
   "dependencies": {
+    "gl-matrix": "^2.1.0",
+    "stats.js": "^1.0.0",
+    "three": "^0.71.0"
   }
 }

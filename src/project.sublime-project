@@ -1,0 +1,21 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/bamfow01/Code/webgl-tilemap"
+		}
+	],
+	"ternjs":
+	{
+		"include":
+		[
+			"src/**/*.js",
+			"three.js/src/**/*.js"
+		],
+		"libs":
+		[
+			"browser",
+			"jquery"
+		]
+	}
+}
