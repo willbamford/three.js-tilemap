@@ -1,3 +1,5 @@
+'use strict';
+
 function initStats() {
   var stats = new Stats();
   stats.setMode(0); // 0: fps, 1: ms
@@ -12,8 +14,32 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 3000);
-camera.position.z = 1400;
+var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 3000);
+camera.position.z = 1500;
+
+// var geometry = new THREE.BufferGeometry();
+// var vertexPositions = [
+//   [-1.0, -1.0, 1.0],
+//   [ 1.0, -1.0, 1.0],
+//   [ 1.0,  1.0, 1.0],
+
+//   [ 1.0,  1.0, 1.0],
+//   [-1.0,  1.0, 1.0],
+//   [-1.0, -1.0, 1.0]
+// ];
+
+// var vertices = new Float32Array(vertexPositions.length * 3);
+// for (var i = 0; i < vertexPositions.length; i += 1) {
+//   vertices[i * 3 + 0] = vertexPositions[i][0] * 100;
+//   vertices[i * 3 + 1] = vertexPositions[i][1] * 100;
+//   vertices[i * 3 + 2] = vertexPositions[i][2] * 100;
+// }
+
+// geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+// var material = new THREE.MeshBasicMaterial({color: 0xff0000});
+// var mesh = new THREE.Mesh(geometry, material);
+
+// scene.add(mesh);
 
 var geometry = new THREE.Geometry();
 var colors = [];
@@ -32,14 +58,21 @@ for (var i = 0; i < 1000; i += 1) {
 
 geometry.colors = colors;
 
-var material = new THREE.PointCloudMaterial({size: 85, map: sprite, blending: THREE.AdditiveBlending, vertexColors: THREE.VertexColors, depthTest: false, transparent: true});
+var material = new THREE.PointCloudMaterial({
+  size: 85,
+  map: sprite,
+  blending: THREE.AdditiveBlending,
+  vertexColors: THREE.VertexColors,
+  depthTest: false,
+  transparent: true
+});
 // material.color.setHSL(1.0, 1.0, 1.0);
 
 var particles = new THREE.PointCloud(geometry, material);
 scene.add(particles);
 
-
-var lastNow;
+var now;
+var before;
 var delta = 0;
 
 function update() {
@@ -49,8 +82,11 @@ function update() {
   stats.begin();
 
   now = Date.now();
-  delta = lastNow ? now - lastNow : (1000 / 60);
-  lastNow = now;
+  delta = before ? now - before : (1000 / 60);
+  before = now;
+
+  // mesh.rotation.x += delta * 0.0001;
+  // mesh.rotation.y += delta * 0.0002;
 
   particles.rotation.x += delta * 0.0001;
   particles.rotation.y += delta * 0.0002;
