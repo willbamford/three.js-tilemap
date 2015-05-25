@@ -74,12 +74,14 @@ scene.add(particles);
 var now;
 var before;
 var delta = 0;
-var running = false;
+var running = true;
 
 function update() {
 
-  if (running)
-    requestAnimationFrame(update);
+  if (!running)
+    return;
+  
+  requestAnimationFrame(update);
 
   stats.begin();
 
