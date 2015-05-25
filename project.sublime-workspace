@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"Vect",
+				"Vector3(x, y, z)"
+			],
+			[
+				"DE",
+				"DEFAULT_MAPPING	(num)"
+			],
+			[
+				"load",
+				"loadTexture(url, mapping, onLoad, onError)"
+			],
+			[
+				"Im",
+				"ImageUtils	{}"
+			],
+			[
 				"section",
 				"sectionModifiers"
 			],
@@ -39,7 +55,63 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 1297,
+				"buffer_size": 278,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/app.js",
+			"settings":
+			{
+				"buffer_size": 1863,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "aws-auth.json",
+			"settings":
+			{
+				"buffer_size": 146,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 1386,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 640,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "three.js/examples/webgl_particles_billboards_colors.html",
+			"settings":
+			{
+				"buffer_size": 4476,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "three.js/src/extras/ImageUtils.js",
+			"settings":
+			{
+				"buffer_size": 5072,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "three.js/examples/canvas_particles_sprites.html",
+			"settings":
+			{
+				"buffer_size": 4825,
 				"line_ending": "Unix"
 			}
 		}
@@ -99,8 +171,74 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/bamfow01/Code/webgl-tilemap",
+		"/Users/bamfow01/Code/webgl-tilemap/src",
+		"/Users/bamfow01/Code/webgl-tilemap/three.js",
+		"/Users/bamfow01/Code/webgl-tilemap/three.js/build"
+	],
 	"file_history":
 	[
+		"/Users/bamfow01/Code/webgl-tilemap/three.js/src/textures/Texture.js",
+		"/Users/bamfow01/Code/webgl-tilemap/proj.sublime-project",
+		"/Users/bamfow01/Code/webgl-tilemap/app.js",
+		"/Users/bamfow01/Code/webgl-tilemap/three.js/src/cameras/CubeCamera.js",
+		"/Users/bamfow01/Code/webgl-tilemap/project.sublime-project",
+		"/Users/bamfow01/Code/webgl-tilemap/project.sublime-workspace",
+		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/CricketTest.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/component-configuration/default.json",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Bootstrap.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/conf/features.json",
+		"/Users/bamfow01/Desktop/DO-NOT-IGNORE-TODO.txt",
+		"/Users/bamfow01/Desktop/FIX-ON-MASTER.txrt",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/conf/routes.ini",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/football/teams.json",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiLinkPromo.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/conf/onesport.ini",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Abstract.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyper.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/usr-share-php/BBC/Liveexperience/Presenter/Component/Abstract.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/sass/components/story/_story-headline.scss",
+		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/ServiceAbstract.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/tests/fixtures/date-to-interval-fixture.html",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/tests/specs/date-to-interval-spec.js",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/module/date-to-interval.js",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/timestamp.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/header.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/story/story-info.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/patterns/riverside.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/patterns/lakeside.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/meta.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/module/init/page.js",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/controllers/PageTemplateController.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/sport/webapp/conf/routes.ini",
+		"/Users/bamfow01/Desktop/news-catch-up-notes.txt",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/morph.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/body.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/page-template/story-page.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Service/ContentApiExt.php",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/partials/timestamp.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/related-stories.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/time-stamp.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-enhanced.css",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/top-stories.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/components/story/related-stories.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/library/objects/meta.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/partials/meta.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/partials/story/story-info.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/partials/time-stamp.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/patterns/centre-court.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/patterns/riverside.spv",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-base.css",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-base.css.map",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-enhanced.css.map",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-fixed.css",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/css/compiled/flux-fixed.css.map",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/sass/_flux.scss",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/sass/objects/_timestamp.scss",
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/top-stories.spv",
 		"/Users/bamfow01/Code/webgl-tilemap/three.js/src/scenes/Fog.js",
 		"/Users/bamfow01/Code/webgl-tilemap/webgl-timemap.sublime-project",
 		"/Users/bamfow01/Code/webgl-tilemap/three.js/examples/webgl_interactive_particles.html",
@@ -108,8 +246,6 @@
 		"/Users/bamfow01/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/bamfow01/Desktop/code-intel-shortcuts.txt",
 		"/Users/bamfow01/Desktop/lights.js",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/conf/onesport.ini",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/conf/routes.ini",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/SiteMap.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/shared/headlines.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/inline-head-script.spv",
@@ -120,8 +256,6 @@
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/shared/features.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/article.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/vogue.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/top-stories.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/top-stories.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/comment-count-script.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/SiteMapTest.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/pom.xml",
@@ -129,13 +263,11 @@
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Common.php",
 		"/Users/bamfow01/Desktop/tech-responsibility.txt",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/View/Helper/CreateCommentsCountHtml.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/story/story-info.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/View/Helper/Article/CreateCommentCountMetaHtml.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/module/comment-count.js",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/tests/specs/comment-count-spec.js",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/modules/tests/fixtures/comment-count-fixture.html",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/story/footer.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/page-template/story-page.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Story/Footer.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/Headlines.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/Features.php",
@@ -146,16 +278,13 @@
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Utility/GetCommentsEnabledTest.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Controller/Action/Helper/BuildRequestState.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/Shared/HeadlinesTest.php",
-		"/Users/bamfow01/Desktop/DO-NOT-IGNORE-TODO.txt",
 		"/Users/bamfow01/Code/sport-sandbox/projects/sport/webapp/php/sharedmodules/platformsharing/views/sport-body-assets/section.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/component-configuration/default.json",
 		"/Users/bamfow01/Desktop/Wembley__Spacing_.html",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/sass/components/_index-layout.scss",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/phpunit-bootstrap.php",
 		"/Users/bamfow01/Desktop/todo-2344.txrt",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/AppBridge.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/Shared/AppBridgeTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Abstract.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/beta/rugby-union.json",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/beta/cricket.json",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/beta/football.json",
@@ -165,7 +294,6 @@
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/contact.json",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/layout-configuration/default/sport/correspondent-page.json",
 		"/Users/bamfow01/Code/sport-sandbox/projects/usr-share-php/BBC/Lib/Sport/Utility/XsltBeta.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/VogueTest.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Vogue.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/data/content/asset/sport/no-features%3Faudience%3Ddomestic%26platform%3Dmobile.json",
@@ -179,66 +307,24 @@
 		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Model/Content/ItemMeta.php",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/page-template/primary-index.spv",
 		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/inline-head-script.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/base.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Navigation/Top.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Abstract.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/Theme.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Model/Content/Story.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Model/Content/Item.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/ThemeTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/RugbyUnionTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src/test/BBC/Lib/Sport/Utility/XsltTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/data/xslt-beta/expected/story-body-media-video-as-lead-test.html",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/data/xslt-beta/expected/story-body-video-not-blocked-test.html",
-		"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/pom.xml",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/CricketTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/bootstrap.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/GenericStats/Table/Cricket/Fixtures.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/SplashPromo.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiLinkPromo.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/CrossPromoFooter.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/mocks/sport_cricket/api-live-bbc-co-uk-443_content_asset_sport_cricket_3.stub",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/mocks/sport_cricket/api-live-bbc-co-uk-443_content_asset_sport_cricket_31098308_5.stub",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/Helpers/PalEnv.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/Factory/HostEnvironment.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/usr-share-php/Zend/Feed/Writer/Source.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetHyperUriTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/phpunit.xml",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/TestCase.php",
-		"/Users/bamfow01/Code/hello-test/hello.js/src/modules/windows.js",
-		"/Users/bamfow01/Code/hello-test/hello.js/tests/specs/stubs/windows/get/me/photos.json",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/Pages/config/beta/cricket.json",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/mocks/sport_rugby-union/api-live-bbc-co-uk-443_content_asset_sport_rugby-union_3.stub",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/BetaIndexes/mocks/sport_cricket/api-live-bbc-co-uk-443_content_asset_sport_rugby-union_31098313_5.stub",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/Rugby/Standings/NoBonusPointsTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/Rugby/Scorers/RugbyLeagueZeroZeroTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/Rugby/Scorers/GameFinishedScorelessWithNoAdditionalInfoTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/Rugby/LiveScores/ResultsTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/test/OnesportE2E/Rugby/LiveScores/LiveMatchesTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/TestCase.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyperUri.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyper.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetHyperTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/ExternalLinks.php",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/Shared/SplashPromoTest.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/Pages/config/beta/rugby-union.json",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/lib/BBC/Onesport/Model/RequestState.php",
-		"/Users/bamfow01/Code/sport-sandbox/onesport-e2e/src/main/OnesportE2E/Pages/config/beta/homepage.json",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/digest.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/partials/cross-promo-footer.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/shared/around-the-uk.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/shared/sports-digest.spv",
-		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html/components/ice-embed.spv"
+		"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/sharedmodules/components/views/html/base.spv"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp",
+			"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned/sass/components",
+			"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport",
+			"/Users/bamfow01/Code/sport-sandbox/onesport-e2e",
+			"/Users/bamfow01/Code/sport-sandbox/projects/onesport",
+			"/Users/bamfow01/Code/sport-sandbox/projects/bbc-pal-library-onesport/src",
+			"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp",
 			"/Users/bamfow01/Code/sport-sandbox/projects/onesport",
 			"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/static-versioned",
 			"/Users/bamfow01/Code/sport-sandbox/projects/onesport/webapp/php/modules/onesport/views/html",
@@ -321,6 +407,63 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"windowHal",
+			"windowHalg",
+			" )",
+			"( ",
+			" )",
+			"( ",
+			" )",
+			"( ",
+			" ]",
+			"[ ",
+			"sprite",
+			"test",
+			"assetUri",
+			"\"",
+			"setApi",
+			"getApi",
+			"_api",
+			"setApi",
+			"getApi",
+			"\"",
+			"getIsOn",
+			"test",
+			"-    ",
+			"getOpt",
+			"config->",
+			"isUk",
+			"story-headline",
+			"test",
+			"    class=\"date\"",
+			"    data-mini",
+			"mini",
+			"    3 Feb",
+			"fixture-",
+			"fixture-0",
+			"getFixtureAtIndex",
+			"function(){",
+			"starting-",
+			"test",
+			"isUk",
+			"Origin URI",
+			"starting-",
+			"test",
+			"date-date",
+			"live-404",
+			"beta_",
+			"beta",
+			"disable",
+			"\"",
+			"checkIfRouteDisabledOnLive",
+			"checkIfEnabledOnLive",
+			"test",
+			"responsive-story-page",
+			"redirect",
+			"morph-live-scores",
+			"date",
+			"time-stamp",
+			"test",
 			"TerrainDotsTile",
 			"TileManager",
 			"random",
@@ -391,64 +534,7 @@
 			"test",
 			"getOpt",
 			"getOpts",
-			"10",
-			"300",
-			"\"",
-			"convert",
-			"aPosition",
-			"position",
-			"positionLocation",
-			"a_position",
-			"\"",
-			"ctx",
-			"createProgram",
-			"img",
-			"showNotSupportedMessage",
-			"NotSupportedMessage",
-			"vertextShader",
-			"  ",
-			"tex ",
-			"\"",
-			"vloc",
-			"texBuffer",
-			"texBuff",
-			"vertexBuff",
-			"\"",
-			"context",
-			"fragmntShader",
-			"fragShaderObj",
-			"vertShaderObj",
-			"progObj",
-			"fragmentShaderSrc",
-			"vertexShaderSrc",
-			"\"",
-			"ctx3d",
-			"canvas3d",
-			"cvs",
-			"begin",
-			"mountCanvas",
-			"live",
-			"beta-1",
-			"themeClasses",
-			"themeClass",
-			"bodyClass ",
-			"bodyClass",
-			"test",
-			"themeClasses",
-			"bodyClass",
-			"bodyClas",
-			"bodyClass",
-			"body-classes",
-			"test",
-			"->getUri(",
-			"/sport/cricket/31098308",
-			"isMDot",
-			"RUNNIN",
-			"getHost",
-			"404",
-			"offset",
-			"index",
-			"offset"
+			"10"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -456,6 +542,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"timestamp",
 			"/time-stamp",
 			" =",
 			"enableNotSupportedMessage",
@@ -472,7 +559,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -481,15 +568,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1297,
+						"buffer_size": 278,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								338,
-								338
+								170,
+								210
 							]
 						],
 						"settings":
@@ -502,7 +589,212 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1863,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1688,
+								1688
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 456.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "aws-auth.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 146,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								117,
+								117
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1386,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								991,
+								991
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "three.js/examples/webgl_particles_billboards_colors.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1223,
+								1103
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "three.js/src/extras/ImageUtils.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5072,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								994,
+								994
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "three.js/examples/canvas_particles_sprites.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4825,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 980.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -544,7 +836,7 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "webgl-timemap.sublime-project",
+	"project": "project.sublime-project",
 	"replace":
 	{
 		"height": 48.0
@@ -557,6 +849,198 @@
 		"selected_items":
 		[
 			[
+				"onesport.ini",
+				"projects/onesport/webapp/conf/onesport.ini"
+			],
+			[
+				"item.php",
+				"projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Model/Content/Item.php"
+			],
+			[
+				"content/itemmeta",
+				"projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/Model/Content/ItemMeta.php"
+			],
+			[
+				"aintree.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/aintree.spv"
+			],
+			[
+				"more-from.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/more-from.spv"
+			],
+			[
+				"gethypertest",
+				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetHyperTest.php"
+			],
+			[
+				"gethyper",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyper.php"
+			],
+			[
+				"gethyperuri",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyperUri.php"
+			],
+			[
+				"multilinkpromotest",
+				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/Shared/MultiLinkPromoTest.php"
+			],
+			[
+				"multilink",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiLinkPromo.php"
+			],
+			[
+				"multithumbpromo",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
+			],
+			[
+				"onesport.",
+				"projects/onesport/webapp/conf/onesport.ini"
+			],
+			[
+				"crickettest.php",
+				"onesport-e2e/src/test/OnesportE2E/BetaIndexes/CricketTest.php"
+			],
+			[
+				"bootstrap.php",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Bootstrap.php"
+			],
+			[
+				"feature.json",
+				"projects/onesport/webapp/conf/features.json"
+			],
+			[
+				"multithumpromo",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
+			],
+			[
+				"multilinkpromo",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiLinkPromo.php"
+			],
+			[
+				"component/abstract",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Abstract.php"
+			],
+			[
+				"multithum",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
+			],
+			[
+				"team.json",
+				"projects/onesport/webapp/data/layout-configuration/default/sport/football/teams.json"
+			],
+			[
+				"page-template/story",
+				"projects/onesport/webapp/php/modules/onesport/views/html/page-template/story-page.spv"
+			],
+			[
+				"serviceabstract",
+				"projects/bbc-pal-library-onesport/src/main/BBC/Lib/Sport/ServiceAbstract.php"
+			],
+			[
+				"stroy-info",
+				"projects/onesport/webapp/php/modules/onesport/views/html/partials/story/story-info.spv"
+			],
+			[
+				"header.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/story/header.spv"
+			],
+			[
+				"meta.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/partials/meta.spv"
+			],
+			[
+				"lakeside",
+				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/lakeside.spv"
+			],
+			[
+				"riverside",
+				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/riverside.spv"
+			],
+			[
+				"timestamp.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/partials/timestamp.spv"
+			],
+			[
+				"date-to",
+				"projects/onesport/webapp/static-versioned/modules/tests/fixtures/date-to-interval-fixture.html"
+			],
+			[
+				"date-to-in",
+				"projects/onesport/webapp/static-versioned/modules/tests/specs/date-to-interval-spec.js"
+			],
+			[
+				"date-to-inter",
+				"projects/onesport/webapp/static-versioned/modules/tests/specs/date-to-interval-spec.js"
+			],
+			[
+				"onesport.i",
+				"projects/onesport/webapp/conf/onesport.ini"
+			],
+			[
+				"footer.php",
+				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Story/Footer.php"
+			],
+			[
+				"roues.ini",
+				"projects/onesport/webapp/conf/routes.ini"
+			],
+			[
+				"date-to-interval",
+				"projects/onesport/webapp/static-versioned/modules/tests/specs/date-to-interval-spec.js"
+			],
+			[
+				"features.json",
+				"projects/onesport/webapp/conf/features.json"
+			],
+			[
+				"pagetemplatecontroll",
+				"projects/onesport/webapp/php/modules/onesport/controllers/PageTemplateController.php"
+			],
+			[
+				"routes.ini",
+				"projects/onesport/webapp/conf/routes.ini"
+			],
+			[
+				"pagetemplate",
+				"projects/onesport/webapp/php/modules/onesport/controllers/PageTemplateController.php"
+			],
+			[
+				"page-template/story.",
+				"projects/onesport/webapp/php/modules/onesport/views/html/page-template/story-page.spv"
+			],
+			[
+				"body.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/story/body.spv"
+			],
+			[
+				"morph.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/morph.spv"
+			],
+			[
+				"date-",
+				"projects/onesport/webapp/static-versioned/modules/module/date-to-interval.js"
+			],
+			[
+				"component/abstract.php",
+				"projects/usr-share-php/BBC/Liveexperience/Presenter/Component/Abstract.php"
+			],
+			[
+				"related-stories",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/story/related-stories.spv"
+			],
+			[
+				"riverside.spv",
+				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/riverside.spv"
+			],
+			[
+				"story/top-stories",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/story/top-stories.spv"
+			],
+			[
+				"top-stories",
+				"projects/onesport/webapp/php/modules/onesport/views/html/components/top-stories.spv"
+			],
+			[
 				"plane",
 				"three.js/src/extras/geometries/PlaneGeometry.js"
 			],
@@ -567,10 +1051,6 @@
 			[
 				"section.spv",
 				"projects/onesport/webapp/php/modules/onesport/views/html/partials/section.spv"
-			],
-			[
-				"routes.ini",
-				"projects/onesport/webapp/conf/routes.ini"
 			],
 			[
 				"football.json",
@@ -597,28 +1077,12 @@
 				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/TopStoriesTest.php"
 			],
 			[
-				"meta.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/partials/meta.spv"
-			],
-			[
-				"lakeside",
-				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/lakeside.spv"
-			],
-			[
 				"crucible.spv",
 				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/crucible.spv"
 			],
 			[
 				"topstories.",
 				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/TopStories.php"
-			],
-			[
-				"feature.json",
-				"projects/onesport/webapp/conf/features.json"
-			],
-			[
-				"onesport.",
-				"projects/onesport/webapp/conf/onesport.ini"
 			],
 			[
 				"sitemap",
@@ -631,14 +1095,6 @@
 			[
 				"time-stamp",
 				"projects/onesport/webapp/php/modules/onesport/views/html/partials/time-stamp.spv"
-			],
-			[
-				"top-stories",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/top-stories.spv"
-			],
-			[
-				"riverside",
-				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/riverside.spv"
 			],
 			[
 				"crucible",
@@ -717,10 +1173,6 @@
 				"projects/onesport/webapp/php/lib/BBC/Onesport/Controller/Action.php"
 			],
 			[
-				"footer.php",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Story/Footer.php"
-			],
-			[
 				"onsport.ini",
 				"projects/onesport/webapp/conf/onesport.ini"
 			],
@@ -735,10 +1187,6 @@
 			[
 				"footer.spv",
 				"projects/onesport/webapp/php/modules/onesport/views/html/components/story/footer.spv"
-			],
-			[
-				"onesport.ini",
-				"projects/onesport/webapp/conf/onesport.ini"
 			],
 			[
 				"headlinestest",
@@ -813,10 +1261,6 @@
 				"projects/onesport/webapp/static-versioned/sass/components/_component.scss"
 			],
 			[
-				"component/abstract",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Abstract.php"
-			],
-			[
 				"appbridgetest",
 				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/Shared/AppBridgeTest.php"
 			],
@@ -839,10 +1283,6 @@
 			[
 				"voguetest.php",
 				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Component/VogueTest.php"
-			],
-			[
-				"multithumbpromo",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
 			],
 			[
 				"vogue.php",
@@ -901,10 +1341,6 @@
 				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetHyperUriTest.php"
 			],
 			[
-				"gethyperuri",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyperUri.php"
-			],
-			[
 				"multithumbprmo",
 				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
 			],
@@ -917,156 +1353,12 @@
 				"onesport-e2e/src/main/OnesportE2E/TestCase.php"
 			],
 			[
-				"gethypertest",
-				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetHyperTest.php"
-			],
-			[
-				"gethyper",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetHyper.php"
-			],
-			[
 				"requeststate",
 				"projects/onesport/webapp/php/lib/BBC/Onesport/Model/RequestState.php"
 			],
 			[
 				"rugbyuniontest",
 				"onesport-e2e/src/test/OnesportE2E/BetaIndexes/RugbyUnionTest.php"
-			],
-			[
-				"digest.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/digest.spv"
-			],
-			[
-				"testcase",
-				"onesport-e2e/src/main/OnesportE2E/TestCase.php"
-			],
-			[
-				"cross-promo-footer",
-				"projects/onesport/webapp/php/modules/onesport/views/html/partials/cross-promo-footer.spv"
-			],
-			[
-				"around-the-uk.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/shared/around-the-uk.spv"
-			],
-			[
-				"multi-link-promo",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/shared/multi-link-promo.spv"
-			],
-			[
-				"get-inspired.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/shared/get-inspired.spv"
-			],
-			[
-				"multithumbpromo.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/shared/multi-thumb-promo.spv"
-			],
-			[
-				"multithumbp",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/MultiThumbPromo.php"
-			],
-			[
-				"cricket.json",
-				"projects/onesport/webapp/data/layout-configuration/default/sport/beta/cricket.json"
-			],
-			[
-				"audio-vide",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/shared/audio-video.spv"
-			],
-			[
-				"rugby-union.json",
-				"projects/onesport/webapp/data/layout-configuration/default/sport/beta/rugby-union.json"
-			],
-			[
-				"pagetype.php",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Controller/Action/Helper/PageType.php"
-			],
-			[
-				"buildrequeststate",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Controller/Action/Helper/BuildRequestState.php"
-			],
-			[
-				"pagetemplate",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/PageTemplate.php"
-			],
-			[
-				"testcasetest",
-				"onesport-e2e/vendor/phpunit/phpunit/tests/Framework/TestCaseTest.php"
-			],
-			[
-				"testcase.php",
-				"onesport-e2e/src/main/OnesportE2E/TestCase.php"
-			],
-			[
-				"getadstod",
-				"projects/onesport/webapp/php/lib-test/BBC/Onesport/Presenter/Helper/GetAdsToDisplayTest.php"
-			],
-			[
-				"getadsto",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetAdsToDisplay.php"
-			],
-			[
-				"crickettest.php",
-				"onesport-e2e/src/test/OnesportE2E/BetaIndexes/CricketTest.php"
-			],
-			[
-				"html/base.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/base.spv"
-			],
-			[
-				"insertadinto",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/View/Helper/InsertAdIntoHtml.php"
-			],
-			[
-				"advert.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/partials/advert.spv"
-			],
-			[
-				"getistatscounter",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Helper/GetIStatsCounterName.php"
-			],
-			[
-				"shared/advert",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Shared/Advert.php"
-			],
-			[
-				"componentbuilder",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Builder.php"
-			],
-			[
-				"component/abstract.php",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/Abstract.php"
-			],
-			[
-				"velodrom",
-				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/velodrome.spv"
-			],
-			[
-				"display.js",
-				"www/js/stage/display.js"
-			],
-			[
-				"beta/rugby-union.json",
-				"projects/onesport/webapp/data/layout-configuration/default/sport/beta/rugby-union.json"
-			],
-			[
-				"crucible.s",
-				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/crucible.spv"
-			],
-			[
-				"aintree.spv",
-				"projects/onesport/webapp/php/modules/onesport/views/html/patterns/aintree.spv"
-			],
-			[
-				"more-from",
-				"projects/onesport/webapp/php/modules/onesport/views/html/components/more-from.spv"
-			],
-			[
-				"beta/cricket.json",
-				"projects/onesport/webapp/data/layout-configuration/default/sport/beta/cricket.json"
-			],
-			[
-				"topstories",
-				"projects/onesport/webapp/php/lib/BBC/Onesport/Presenter/Component/TopStories.php"
 			]
 		],
 		"width": 0.0
@@ -1101,7 +1393,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 326.0,
+	"side_bar_width": 294.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
