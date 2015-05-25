@@ -45,7 +45,7 @@ var geometry = new THREE.Geometry();
 var colors = [];
 var sprite = THREE.ImageUtils.loadTexture('led.png');
 
-for (var i = 0; i < 1000; i += 1) {
+for (var i = 0; i < 10000; i += 1) {
   var vertex = new THREE.Vector3();
   vertex.x = 2000 * Math.random() - 1000;
   vertex.y = 2000 * Math.random() - 1000;
@@ -74,19 +74,26 @@ scene.add(particles);
 var now;
 var before;
 var delta = 0;
+var running = false;
 
 function update() {
 
-  requestAnimationFrame(update);
+  if (running)
+    requestAnimationFrame(update);
 
   stats.begin();
 
   now = Date.now();
-  delta = before ? now - before : (1000 / 60);
+  delta = before ? now - before : 0;
   before = now;
 
   // mesh.rotation.x += delta * 0.0001;
   // mesh.rotation.y += delta * 0.0002;
+
+  // for (var i = 0; i < geometry.colors.length; i += 1) {
+  //   geometry.colors[i].setHSL(Math.random(), 1, 0.5);
+  // }
+  // geometry.colorsNeedUpdate = true;
 
   particles.rotation.x += delta * 0.0001;
   particles.rotation.y += delta * 0.0002;
@@ -110,5 +117,13 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener('resize', onResize, false);
+
+renderer.domElement.addEventListener('mousedown', function () {
+  running = !running;
+  if (running) {
+    before = Date.now();
+    update();
+  }
+});
 
 update();
