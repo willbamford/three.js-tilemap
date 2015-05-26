@@ -1,2 +1,2 @@
-# webgl-tilemap
-WebGL Tilemap Experiment
+# Three.js Tilemap
+Three.js Tilemap Experiment
