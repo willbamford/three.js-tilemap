@@ -1,17 +1,42 @@
-var Tilemap = function (tileSize, nCols, nRows) {
+var Tilemap = function (parameters) {
+
+  'use strict';
+
+  function randomTileUV() {
+    var u = tileSizeU * Math.floor(Math.random() * spritesheetNumOfCols);
+    var v = tileSizeV * (spritesheetNumOfRows / 2 + Math.floor(Math.random() * (spritesheetNumOfRows / 2)));
+    return {
+      u0: u,
+      v0: v,
+      u1: u + tileSizeU,
+      v1: v + tileSizeV
+    }
+  }
 
   // THREE.Object3D.call(this);
   // this.type = 'Tilemap';
 
-  var nCols1 = nCols + 1;
-  var nRows1 = nRows + 1;
+  parameters = parameters || {};
 
-  var width = tileSize * nCols;
-  var height = tileSize * nRows;
+  var tileSize = parameters.tileSize;
+  var numOfCols = parameters.numOfCols;
+  var numOfRows = parameters.numOfRows;
 
-  var indices = new Uint16Array(nCols * nRows * 6);
-  var vertices = new Float32Array(nCols * nRows * 4 * 3);
-  var uvs = new Float32Array(nCols * nRows * 4 * 2);
+  var spritesheetTileSize = parameters.spritesheetTileSize;
+  var spritesheetWidth = parameters.spritesheetWidth;
+  var spritesheetHeight = parameters.spritesheetHeight;
+  var spritesheetNumOfCols = spritesheetWidth / spritesheetTileSize;
+  var spritesheetNumOfRows = spritesheetHeight / spritesheetTileSize;
+
+  var tileSizeU = spritesheetTileSize / spritesheetWidth;
+  var tileSizeV = spritesheetTileSize / spritesheetHeight;
+
+  var width = tileSize * numOfCols;
+  var height = tileSize * numOfRows;
+
+  var indices = new Uint16Array(numOfCols * numOfRows * 6);
+  var vertices = new Float32Array(numOfCols * numOfRows * 4 * 3);
+  var uvs = new Float32Array(numOfCols * numOfRows * 4 * 2);
 
   var offset12 = 0;
   var offset8 = 0;
@@ -20,11 +45,11 @@ var Tilemap = function (tileSize, nCols, nRows) {
   var ix, iy;
   var x, y;
 
-  for (iy = 0; iy < nRows; iy += 1) {
+  for (iy = 0; iy < numOfRows; iy += 1) {
 
     y = iy * tileSize - height / 2;
 
-    for (ix = 0; ix < nCols; ix += 1) {
+    for (ix = 0; ix < numOfCols; ix += 1) {
 
       x = ix * tileSize - width / 2;
 
@@ -52,17 +77,33 @@ var Tilemap = function (tileSize, nCols, nRows) {
       indices[offset6 + 4] = offset4 + 3;
       indices[offset6 + 5] = offset4 + 1;
 
-      uvs[offset8 + 0] = 0;
-      uvs[offset8 + 1] = 0;
+      var tile = randomTileUV();
 
-      uvs[offset8 + 2] = 1;
-      uvs[offset8 + 3] = 0;
+      // console.log(tile);
 
-      uvs[offset8 + 4] = 0;
-      uvs[offset8 + 5] = 1;
+      // uvs[offset8 + 0] = tile.u;
+      // uvs[offset8 + 1] = tile.v;
 
-      uvs[offset8 + 6] = 1;
-      uvs[offset8 + 7] = 1;
+      // uvs[offset8 + 2] = tile.u + tileSizeU;
+      // uvs[offset8 + 3] = tile.v;
+
+      // uvs[offset8 + 4] = tile.u;
+      // uvs[offset8 + 5] = tile.v + tileSizeV;
+
+      // uvs[offset8 + 6] = tile.u + tileSizeU;
+      // uvs[offset8 + 7] = tile.v + tileSizeV;
+
+      uvs[offset8 + 0] = tile.u0;
+      uvs[offset8 + 1] = tile.v0;
+
+      uvs[offset8 + 2] = tile.u1;
+      uvs[offset8 + 3] = tile.v0;
+
+      uvs[offset8 + 4] = tile.u0;
+      uvs[offset8 + 5] = tile.v1;
+
+      uvs[offset8 + 6] = tile.u1
+      uvs[offset8 + 7] = tile.v1;
 
       offset12 += 12;
       offset8 += 8;
@@ -72,8 +113,8 @@ var Tilemap = function (tileSize, nCols, nRows) {
       // x = ix * tileSize - (width / 2);
       // vertices[offset    ] = x;
       // vertices[offset + 1] = y;
-      // uvs[offset2    ] = ix / nCols;
-      // uvs[offset2 + 1] = 1 - (iy / nRows);
+      // uvs[offset2    ] = ix / numOfCols;
+      // uvs[offset2 + 1] = 1 - (iy / numOfRows);
       // offset += 3;
       // offset2 += 2;
     }
@@ -81,18 +122,18 @@ var Tilemap = function (tileSize, nCols, nRows) {
 
   // console.dir(vertices);
 
-  // var indices = new Uint16Array(nCols * nRows * 6);
-  // var uvs = new Float32Array(nCols * nRows * 12); /* 6 p/quad */
+  // var indices = new Uint16Array(numOfCols * numOfRows * 6);
+  // var uvs = new Float32Array(numOfCols * numOfRows * 12); /* 6 p/quad */
   // var a, b, c, d;
   // offset = 0;
 
-  // for (iy = 0; iy < nRows1; iy += 1) {
-  //   for (ix = 0; ix < nCols1; ix += 1) {
+  // for (iy = 0; iy < numOfRows1; iy += 1) {
+  //   for (ix = 0; ix < numOfCols1; ix += 1) {
 
-  //     a = ix + nCols1 * iy;
-  //     b = ix + nCols1 * ( iy + 1 );
-  //     c = (ix + 1) + nCols1 * (iy + 1);
-  //     d = (ix + 1) + nCols1 * iy;
+  //     a = ix + numOfCols1 * iy;
+  //     b = ix + numOfCols1 * ( iy + 1 );
+  //     c = (ix + 1) + numOfCols1 * (iy + 1);
+  //     d = (ix + 1) + numOfCols1 * iy;
 
   //     indices[offset    ] = a;
   //     indices[offset + 1] = b;

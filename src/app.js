@@ -14,12 +14,25 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 3000);
-camera.position.z = 1500;
+var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 6000);
+camera.position.z = 1000;
 
-var sprite = THREE.ImageUtils.loadTexture('led.png');
+var spritesheet = THREE.ImageUtils.loadTexture('lttp-tiles_2048x1024.png');
 
-var tilemap = new Tilemap(10, 120, 120);
+spritesheet.wrapS = THREE.ClampToEdgeWrapping; // THREE.Repeat;
+spritesheet.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
+
+spritesheet.magFilter = THREE.NearestFilter;
+spritesheet.minFilter = THREE.NearestFilter;
+
+var tilemap = new Tilemap({
+  tileSize: 64,
+  numOfCols: 80,
+  numOfRows: 80,
+  spritesheetTileSize: 16,
+  spritesheetWidth: 2048,
+  spritesheetHeight: 1024
+});
 
 // var geometry = new THREE.BufferGeometry();
 // var vertices = [
@@ -67,7 +80,7 @@ var tilemap = new Tilemap(10, 120, 120);
 // geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
 
 var material = new THREE.MeshBasicMaterial({
-  map: sprite
+  map: spritesheet
   // side: THREE.BackSide,
   // vertexColors: THREE.VertexColors
   // color: 0x00ff00,
@@ -149,7 +162,7 @@ function onResize(event) {
   renderer.setSize(w, h);
 }
 
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({antialias: true});
 // renderer.setPixelRatio(window.devicePixelRatio || 1);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);

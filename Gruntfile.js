@@ -26,8 +26,8 @@ module.exports = function (grunt) {
             dest: 'index.html'
           },
           {
-            src: 'led.png',
-            dest: 'led.png'
+            src: 'lttp-tiles_2048x1024.png',
+            dest: 'lttp-tiles_2048x1024.png'
           },
           {
             src: 'node_modules/stats.js/build/stats.min.js',
