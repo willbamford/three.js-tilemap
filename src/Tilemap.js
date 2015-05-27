@@ -13,7 +13,7 @@ var Tilemap = function (parameters) {
     }
   }
 
-  // THREE.Object3D.call(this);
+  // THREE.Object3D.call(this );
   // this.type = 'Tilemap';
 
   parameters = parameters || {};
@@ -57,41 +57,27 @@ var Tilemap = function (parameters) {
       vertices[offset12 + 1 ] = y;
       vertices[offset12 + 2 ] = 0;
 
-      vertices[offset12 + 3 ] = x;
-      vertices[offset12 + 4 ] = y + tileSize;
+      vertices[offset12 + 3 ] = x + tileSize;
+      vertices[offset12 + 4 ] = y;
       vertices[offset12 + 5 ] = 0;
 
-      vertices[offset12 + 6 ] = x + tileSize;
-      vertices[offset12 + 7 ] = y;
+      vertices[offset12 + 6 ] = x;
+      vertices[offset12 + 7 ] = y + tileSize;
       vertices[offset12 + 8 ] = 0;
 
       vertices[offset12 + 9 ] = x + tileSize;
       vertices[offset12 + 10] = y + tileSize;
       vertices[offset12 + 11] = 0;
 
-      indices[offset6 + 0] = offset4;
-      indices[offset6 + 1] = offset4 + 2;
-      indices[offset6 + 2] = offset4 + 1;
+      indices[offset6 + 0] = offset4 + 0;
+      indices[offset6 + 1] = offset4 + 1;
+      indices[offset6 + 2] = offset4 + 2;
 
-      indices[offset6 + 3] = offset4 + 2;
+      indices[offset6 + 3] = offset4 + 1;
       indices[offset6 + 4] = offset4 + 3;
-      indices[offset6 + 5] = offset4 + 1;
+      indices[offset6 + 5] = offset4 + 2;
 
       var tile = randomTileUV();
-
-      // console.log(tile);
-
-      // uvs[offset8 + 0] = tile.u;
-      // uvs[offset8 + 1] = tile.v;
-
-      // uvs[offset8 + 2] = tile.u + tileSizeU;
-      // uvs[offset8 + 3] = tile.v;
-
-      // uvs[offset8 + 4] = tile.u;
-      // uvs[offset8 + 5] = tile.v + tileSizeV;
-
-      // uvs[offset8 + 6] = tile.u + tileSizeU;
-      // uvs[offset8 + 7] = tile.v + tileSizeV;
 
       uvs[offset8 + 0] = tile.u0;
       uvs[offset8 + 1] = tile.v0;

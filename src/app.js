@@ -14,7 +14,10 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 6000);
+var axisHelper = new THREE.AxisHelper(50);
+scene.add(axisHelper);
+
+var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 5000);
 camera.position.z = 1000;
 
 var spritesheet = THREE.ImageUtils.loadTexture('lttp-tiles_2048x1024.png');
@@ -22,11 +25,11 @@ var spritesheet = THREE.ImageUtils.loadTexture('lttp-tiles_2048x1024.png');
 spritesheet.wrapS = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 spritesheet.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 
-spritesheet.magFilter = THREE.NearestFilter;
-spritesheet.minFilter = THREE.NearestFilter;
+spritesheet.magFilter = THREE.LinearFilter;             // THREE.NearestFilter;
+spritesheet.minFilter = THREE.LinearMipMapLinearFilter; // THREE.NearestFilter;
 
 var tilemap = new Tilemap({
-  tileSize: 64,
+  tileSize: 32,
   numOfCols: 80,
   numOfRows: 80,
   spritesheetTileSize: 16,
@@ -80,8 +83,8 @@ var tilemap = new Tilemap({
 // geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
 
 var material = new THREE.MeshBasicMaterial({
-  map: spritesheet
-  // side: THREE.BackSide,
+  map: spritesheet,
+  side: THREE.FrontSide
   // vertexColors: THREE.VertexColors
   // color: 0x00ff00,
   // shading: THREE.FlatShading,
@@ -138,7 +141,7 @@ function update() {
   delta = before ? now - before : 0;
   before = now;
 
-  mesh.rotation.x += delta * 0.0008;
+  mesh.rotation.x += delta * 0.0002;
   mesh.rotation.y += delta * 0.0008;
 
   // for (var i = 0; i < geometry.colors.length; i += 1) {
