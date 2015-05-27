@@ -2,44 +2,29 @@ var Tilemap = function (parameters) {
 
   'use strict';
 
-  function randomTileUV() {
-    var u = tileSizeU * Math.floor(Math.random() * spritesheetNumOfCols);
-    var v = tileSizeV * (spritesheetNumOfRows / 2 + Math.floor(Math.random() * (spritesheetNumOfRows / 2)));
-    return {
-      u0: u,
-      v0: v,
-      u1: u + tileSizeU,
-      v1: v + tileSizeV
-    }
-  }
+  parameters = parameters || { spritesheet: {} };
 
-  // THREE.Object3D.call(this );
-  // this.type = 'Tilemap';
+  var tileSize = this.tileSize = parameters.tileSize;
+  var numOfCols = this.numOfCols = parameters.numOfCols;
+  var numOfRows = this.numOfRows = parameters.numOfRows;
+  var width = this.width = tileSize * numOfCols;
+  var height = this.height = tileSize * numOfRows;
 
-  parameters = parameters || {};
+  var spritesheet = parameters.spritesheet;
 
-  var tileSize = parameters.tileSize;
-  var numOfCols = parameters.numOfCols;
-  var numOfRows = parameters.numOfRows;
+  spritesheet.numOfCols = spritesheet.width / spritesheet.tileSize;
+  spritesheet.numOfRows = spritesheet.height / spritesheet.tileSize;
 
-  var spritesheetTileSize = parameters.spritesheetTileSize;
-  var spritesheetWidth = parameters.spritesheetWidth;
-  var spritesheetHeight = parameters.spritesheetHeight;
-  var spritesheetNumOfCols = spritesheetWidth / spritesheetTileSize;
-  var spritesheetNumOfRows = spritesheetHeight / spritesheetTileSize;
+  spritesheet.tileSizeU = spritesheet.tileSize / spritesheet.width;
+  spritesheet.tileSizeV = spritesheet.tileSize / spritesheet.height;
 
-  var tileSizeU = spritesheetTileSize / spritesheetWidth;
-  var tileSizeV = spritesheetTileSize / spritesheetHeight;
-
-  var width = tileSize * numOfCols;
-  var height = tileSize * numOfRows;
+  this.spritesheet = spritesheet;
 
   var indices = new Uint16Array(numOfCols * numOfRows * 6);
   var vertices = new Float32Array(numOfCols * numOfRows * 4 * 3);
   var uvs = new Float32Array(numOfCols * numOfRows * 4 * 2);
 
   var offset12 = 0;
-  var offset8 = 0;
   var offset6 = 0;
   var offset4 = 0;
   var ix, iy;
@@ -77,95 +62,79 @@ var Tilemap = function (parameters) {
       indices[offset6 + 4] = offset4 + 3;
       indices[offset6 + 5] = offset4 + 2;
 
-      var tile = randomTileUV();
-
-      uvs[offset8 + 0] = tile.u0;
-      uvs[offset8 + 1] = tile.v0;
-
-      uvs[offset8 + 2] = tile.u1;
-      uvs[offset8 + 3] = tile.v0;
-
-      uvs[offset8 + 4] = tile.u0;
-      uvs[offset8 + 5] = tile.v1;
-
-      uvs[offset8 + 6] = tile.u1
-      uvs[offset8 + 7] = tile.v1;
-
       offset12 += 12;
-      offset8 += 8;
       offset6 += 6;
       offset4 += 4;
-
-      // x = ix * tileSize - (width / 2);
-      // vertices[offset    ] = x;
-      // vertices[offset + 1] = y;
-      // uvs[offset2    ] = ix / numOfCols;
-      // uvs[offset2 + 1] = 1 - (iy / numOfRows);
-      // offset += 3;
-      // offset2 += 2;
     }
   }
 
-  // console.dir(vertices);
-
-  // var indices = new Uint16Array(numOfCols * numOfRows * 6);
-  // var uvs = new Float32Array(numOfCols * numOfRows * 12); /* 6 p/quad */
-  // var a, b, c, d;
-  // offset = 0;
-
-  // for (iy = 0; iy < numOfRows1; iy += 1) {
-  //   for (ix = 0; ix < numOfCols1; ix += 1) {
-
-  //     a = ix + numOfCols1 * iy;
-  //     b = ix + numOfCols1 * ( iy + 1 );
-  //     c = (ix + 1) + numOfCols1 * (iy + 1);
-  //     d = (ix + 1) + numOfCols1 * iy;
-
-  //     indices[offset    ] = a;
-  //     indices[offset + 1] = b;
-  //     indices[offset + 2] = d;
-
-  //     indices[offset + 3] = b;
-  //     indices[offset + 4] = c;
-  //     indices[offset + 5] = d;
-
-      // uvs[offset2     ] = 0;
-      // uvs[offset2 + 1 ] = 0;
-      // uvs[offset2 + 2 ] = 1;
-      // uvs[offset2 + 3 ] = 0;
-      // uvs[offset2 + 4 ] = 1;
-      // uvs[offset2 + 5 ] = 1;
-
-      // uvs[offset2 + 6 ] = 0;
-      // uvs[offset2 + 7 ] = 1;
-      // uvs[offset2 + 8 ] = 1;
-      // uvs[offset2 + 9 ] = 1;
-      // uvs[offset2 + 10] = 1;
-      // uvs[offset2 + 11] = 0;
-
-      // offset += 6;
-      // offset2 += 12;
-    // }
-  // }
-
   var geometry = new THREE.BufferGeometry();
+  geometry.dynamic = true;
   geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
   geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
   geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+  // ... normal, color
 
-  this.geometry = geometry;
+  var material = new THREE.MeshBasicMaterial({
+    map: spritesheet.texture
+    // side: THREE.FrontSide
+    // vertexColors: THREE.VertexColors
+    // color: 0x00ff00,
+    // shading: THREE.FlatShading,
+    // wireframe: true
+  });
+  var mesh = new THREE.Mesh(geometry, material);
+
+  this.mesh = mesh;
+
+  // this.randomiseTiles();
 }
 
-  // this.indices = indices;
-  // this.vertices = vertices;
-  // this.normals = normals;
-  // this.uvs = uvs;
+Tilemap.prototype.randomiseTiles = function () {
 
-  // this.attributes['index'] = { array: indices, itemSize: 1 };
-  // this.attributes['position'] = { array: vertices, itemSize: 3 };
-  // this.attributes['normal'] = { array: normals, itemSize: 3 };
-  // this.attributes['uv'] = { array: uvs, itemSize: 2 };
+  var ix, iy;
+  var offset8 = 0;
+  var geometry = this.mesh.geometry;
 
-  // return this;
+  var uvs = geometry.attributes.uv.array;
+
+  for (iy = 0; iy < this.numOfRows; iy += 1) {
+
+    for (ix = 0; ix < this.numOfCols; ix += 1) {
+
+      var u0 = this.randomTileU();
+      var u1 = u0 + this.spritesheet.tileSizeU;
+
+      var v0 = this.randomTileV();
+      var v1 = v0 + this.spritesheet.tileSizeV;
+
+      uvs[offset8 + 0] = u0;
+      uvs[offset8 + 1] = v0;
+
+      uvs[offset8 + 2] = u1;
+      uvs[offset8 + 3] = v0;
+
+      uvs[offset8 + 4] = u0;
+      uvs[offset8 + 5] = v1;
+
+      uvs[offset8 + 6] = u1
+      uvs[offset8 + 7] = v1;
+
+      offset8 += 8;
+    }
+  }
+
+  // geometry.uvsNeedUpdate = true;
+  geometry.attributes.uv.needsUpdate = true;
+};
+
+Tilemap.prototype.randomTileU = function () {
+  return this.spritesheet.tileSizeU * Math.floor(Math.random() * this.spritesheet.numOfCols);
+};
+
+Tilemap.prototype.randomTileV = function () {
+  return this.spritesheet.tileSizeV *
+    (this.spritesheet.numOfRows / 2 + Math.floor(Math.random() * (this.spritesheet.numOfRows / 2)));
+};
 
 window.Tilemap = Tilemap;

@@ -20,79 +20,29 @@ scene.add(axisHelper);
 var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 5000);
 camera.position.z = 1000;
 
-var spritesheet = THREE.ImageUtils.loadTexture('lttp-tiles_2048x1024.png');
+var texture = THREE.ImageUtils.loadTexture('lttp-tiles_2048x1024.png');
 
-spritesheet.wrapS = THREE.ClampToEdgeWrapping; // THREE.Repeat;
-spritesheet.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
+texture.wrapS = THREE.ClampToEdgeWrapping; // THREE.Repeat;
+texture.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 
-spritesheet.magFilter = THREE.LinearFilter;             // THREE.NearestFilter;
-spritesheet.minFilter = THREE.LinearMipMapLinearFilter; // THREE.NearestFilter;
+texture.magFilter = THREE.LinearFilter;             // THREE.NearestFilter;
+texture.minFilter = THREE.LinearMipMapLinearFilter; // THREE.NearestFilter;
 
 var tilemap = new Tilemap({
   tileSize: 32,
   numOfCols: 80,
   numOfRows: 80,
-  spritesheetTileSize: 16,
-  spritesheetWidth: 2048,
-  spritesheetHeight: 1024
+  spritesheet: {
+    texture: texture,
+    tileSize: 16,
+    width: 2048,
+    height: 1024
+  }
 });
 
-// var geometry = new THREE.BufferGeometry();
-// var vertices = [
-//   [-1.0, -1.0, 1.0],
-//   [ 1.0, -1.0, 1.0],
-//   [ 1.0,  1.0, 1.0],
+scene.add(tilemap.mesh);
 
-//   [ 1.0,  1.0, 1.0],
-//   [-1.0,  1.0, 1.0],
-//   [-1.0, -1.0, 1.0]
-// ];
-
-// var positions = new Float32Array(vertices.length * 3);
-// var colors = new Float32Array(vertices.length * 3);
-// var uvs = new Float32Array(vertices.length * 2);
-// uvs[0] = 0;
-// uvs[1] = 0;
-
-// uvs[2] = 0;
-// uvs[3] = 1;
-
-// uvs[4] = 1;
-// uvs[5] = 0;
-
-// uvs[6] = 1;
-// uvs[7] = 0;
-
-// uvs[8] = 1;
-// uvs[9] = 0;
-
-// uvs[10] = 1;
-// uvs[11] = 1;
-
-// for (var i = 0; i < vertices.length; i += 1) {
-//   positions[i * 3 + 0] = vertices[i][0] * 100;
-//   positions[i * 3 + 1] = vertices[i][1] * 100;
-//   positions[i * 3 + 2] = vertices[i][2] * 100;
-//   colors[i * 3 + 0] = Math.random();
-//   colors[i * 3 + 1] = Math.random();
-//   colors[i * 3 + 2] = Math.random();
-// }
-
-// geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
-// geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
-// geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-
-var material = new THREE.MeshBasicMaterial({
-  map: spritesheet,
-  side: THREE.FrontSide
-  // vertexColors: THREE.VertexColors
-  // color: 0x00ff00,
-  // shading: THREE.FlatShading,
-  // wireframe: true
-});
-var mesh = new THREE.Mesh(tilemap.geometry, material);
-
-scene.add(mesh);
+window.tilemap = tilemap;
 
 // var geometry = new THREE.Geometry();
 // var colors = [];
@@ -141,8 +91,10 @@ function update() {
   delta = before ? now - before : 0;
   before = now;
 
-  mesh.rotation.x += delta * 0.0002;
-  mesh.rotation.y += delta * 0.0008;
+  tilemap.randomiseTiles();
+
+  tilemap.mesh.rotation.x += delta * 0.0001;
+  tilemap.mesh.rotation.y += delta * 0.0002;
 
   // for (var i = 0; i < geometry.colors.length; i += 1) {
   //   geometry.colors[i].setHSL(Math.random(), 1, 0.5);
