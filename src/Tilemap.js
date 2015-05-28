@@ -2,27 +2,28 @@ var Tilemap = function (parameters) {
 
   'use strict';
 
-  parameters = parameters || { spritesheet: {} };
+  parameters = parameters || { tileset: {} };
 
-  var tileSize = this.tileSize = parameters.tileSize;
-  var numOfCols = this.numOfCols = parameters.numOfCols;
-  var numOfRows = this.numOfRows = parameters.numOfRows;
-  var width = this.width = tileSize * numOfCols;
-  var height = this.height = tileSize * numOfRows;
+  this.tileSize = parameters.tileSize;
+  this.numOfCols = parameters.numOfCols;
+  this.numOfRows = parameters.numOfRows;
+  this.numOfCells = this.numOfCols * this.numOfRows;
+  this.width = this.tileSize * this.numOfCols;
+  this.height = this.tileSize * this.numOfRows;
 
-  var spritesheet = parameters.spritesheet;
+  var tileset = parameters.tileset;
 
-  spritesheet.numOfCols = spritesheet.width / spritesheet.tileSize;
-  spritesheet.numOfRows = spritesheet.height / spritesheet.tileSize;
+  tileset.numOfCols = tileset.width / tileset.tileSize;
+  tileset.numOfRows = tileset.height / tileset.tileSize;
 
-  spritesheet.tileSizeU = spritesheet.tileSize / spritesheet.width;
-  spritesheet.tileSizeV = spritesheet.tileSize / spritesheet.height;
+  tileset.tileSizeU = tileset.tileSize / tileset.width;
+  tileset.tileSizeV = tileset.tileSize / tileset.height;
 
-  this.spritesheet = spritesheet;
+  this.tileset = tileset;
 
-  var indices = new Uint16Array(numOfCols * numOfRows * 6);
-  var vertices = new Float32Array(numOfCols * numOfRows * 4 * 3);
-  var uvs = new Float32Array(numOfCols * numOfRows * 4 * 2);
+  var indices = new Uint16Array(this.numOfCells * 6);
+  var vertices = new Float32Array(this.numOfCells * 4 * 3);
+  var uvs = new Float32Array(this.numOfCells * 4 * 2);
 
   var offset12 = 0;
   var offset6 = 0;
@@ -30,28 +31,28 @@ var Tilemap = function (parameters) {
   var ix, iy;
   var x, y;
 
-  for (iy = 0; iy < numOfRows; iy += 1) {
+  for (iy = 0; iy < this.numOfRows; iy += 1) {
 
-    y = iy * tileSize - height / 2;
+    y = iy * this.tileSize - this.height / 2;
 
-    for (ix = 0; ix < numOfCols; ix += 1) {
+    for (ix = 0; ix < this.numOfCols; ix += 1) {
 
-      x = ix * tileSize - width / 2;
+      x = ix * this.tileSize - this.width / 2;
 
       vertices[offset12 + 0 ] = x;
       vertices[offset12 + 1 ] = y;
       vertices[offset12 + 2 ] = 0;
 
-      vertices[offset12 + 3 ] = x + tileSize;
+      vertices[offset12 + 3 ] = x + this.tileSize;
       vertices[offset12 + 4 ] = y;
       vertices[offset12 + 5 ] = 0;
 
       vertices[offset12 + 6 ] = x;
-      vertices[offset12 + 7 ] = y + tileSize;
+      vertices[offset12 + 7 ] = y + this.tileSize;
       vertices[offset12 + 8 ] = 0;
 
-      vertices[offset12 + 9 ] = x + tileSize;
-      vertices[offset12 + 10] = y + tileSize;
+      vertices[offset12 + 9 ] = x + this.tileSize;
+      vertices[offset12 + 10] = y + this.tileSize;
       vertices[offset12 + 11] = 0;
 
       indices[offset6 + 0] = offset4 + 0;
@@ -76,7 +77,7 @@ var Tilemap = function (parameters) {
   // ... normal, color
 
   var material = new THREE.MeshBasicMaterial({
-    map: spritesheet.texture
+    map: tileset.texture
     // side: THREE.FrontSide
     // vertexColors: THREE.VertexColors
     // color: 0x00ff00,
@@ -90,51 +91,55 @@ var Tilemap = function (parameters) {
   // this.randomiseTiles();
 }
 
-Tilemap.prototype.randomiseTiles = function () {
+Tilemap.prototype.setMap = function (map) {
 
-  var ix, iy;
+  var u0, v0, u1, v1, tile;
   var offset8 = 0;
   var geometry = this.mesh.geometry;
-
   var uvs = geometry.attributes.uv.array;
 
-  for (iy = 0; iy < this.numOfRows; iy += 1) {
-
-    for (ix = 0; ix < this.numOfCols; ix += 1) {
-
-      var u0 = this.randomTileU();
-      var u1 = u0 + this.spritesheet.tileSizeU;
-
-      var v0 = this.randomTileV();
-      var v1 = v0 + this.spritesheet.tileSizeV;
-
-      uvs[offset8 + 0] = u0;
-      uvs[offset8 + 1] = v0;
-
-      uvs[offset8 + 2] = u1;
-      uvs[offset8 + 3] = v0;
-
-      uvs[offset8 + 4] = u0;
-      uvs[offset8 + 5] = v1;
-
-      uvs[offset8 + 6] = u1
-      uvs[offset8 + 7] = v1;
-
-      offset8 += 8;
-    }
+  if (map.length !== this.numOfCells) {
+    console.log('Error: map has wrong dimensions');
+    return;
   }
 
-  // geometry.uvsNeedUpdate = true;
+  for (var i = 0; i < map.length; i += 1) {
+
+    tile = map[i];
+    v0 = Math.floor(tile / this.tileset.numOfCols);
+    u0 = tile - (this.tileset.numOfCols * v0);
+
+    v0 = 1 - v0 * this.tileset.tileSizeV;
+    u0 *= this.tileset.tileSizeU;
+
+    v1 = v0 - this.tileset.tileSizeV;
+    u1 = u0 + this.tileset.tileSizeU;
+
+    uvs[offset8 + 0] = u0;
+    uvs[offset8 + 1] = v0;
+
+    uvs[offset8 + 2] = u1;
+    uvs[offset8 + 3] = v0;
+
+    uvs[offset8 + 4] = u0;
+    uvs[offset8 + 5] = v1;
+
+    uvs[offset8 + 6] = u1
+    uvs[offset8 + 7] = v1;
+
+    offset8 += 8;
+  }
+
   geometry.attributes.uv.needsUpdate = true;
 };
 
 Tilemap.prototype.randomTileU = function () {
-  return this.spritesheet.tileSizeU * Math.floor(Math.random() * this.spritesheet.numOfCols);
+  return this.tileset.tileSizeU * Math.floor(Math.random() * this.tileset.numOfCols);
 };
 
 Tilemap.prototype.randomTileV = function () {
-  return this.spritesheet.tileSizeV *
-    (this.spritesheet.numOfRows / 2 + Math.floor(Math.random() * (this.spritesheet.numOfRows / 2)));
+  return this.tileset.tileSizeV *
+    (this.tileset.numOfRows / 2 + Math.floor(Math.random() * (this.tileset.numOfRows / 2)));
 };
 
 window.Tilemap = Tilemap;
