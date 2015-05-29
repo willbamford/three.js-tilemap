@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Tileset Editor</title>
+    <style>
+      * { margin: 0; padding: 0; }
+      canvas {
+        background: blue;
+      }
+    </style>
+	</head>
+
+	<body>
+
+
+    <script>
+
+      function createCanvas(w, h) {
+        var canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+        return canvas;
+      }
+
+      function nearestPowerOfTwo(v) {
+          var match = 1;
+          while (true) {
+            match *= 2;
+            if (match >= v)
+              return match;
+          }
+      }
+
+      function process(src, tileSize, numOfCols, numOfRows) {
+
+        var img = new Image();
+        img.onload = function () {
+
+          var spacing = 1;
+          var w = (tileSize + spacing * 2) * numOfCols;
+          var h = (tileSize + spacing * 2) * numOfCols;
+
+          var w = nearestPowerOfTwo(w);
+          var h = nearestPowerOfTwo(h);
+
+          var canvas = createCanvas(w, h);
+          var g = canvas.getContext('2d');
+
+          g.fillStyle = '#ff0077';
+          g.fillRect(0, 0, w, h);
+
+          for (var iy = 0; iy < numOfRows; iy += 1) {
+
+            for (var ix = 0; ix < numOfCols; ix += 1) {
+
+              var sx = ix * tileSize;
+              var sy = iy * tileSize;
+              var dx = spacing + (ix * (tileSize + spacing * 2));
+              var dy = spacing + (iy * (tileSize + spacing * 2));
+
+              // Corners
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx - spacing, dy - spacing, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx + spacing, dy - spacing, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx - spacing, dy + spacing, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx + spacing, dy + spacing, tileSize, tileSize);
+
+              // Edges
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx - spacing, dy, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx + spacing, dy, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx, dy - spacing, tileSize, tileSize);
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx, dy + spacing, tileSize, tileSize);
+
+              // Middle
+              g.drawImage(img, sx, sy, tileSize, tileSize, dx, dy, tileSize, tileSize);
+            }
+          }
+        };
+        img.src = src;
+      }
+
+      process('images/tileset1.png', 24, 8, 8);
+
+    </script>
+
+	</body>
+</html>
