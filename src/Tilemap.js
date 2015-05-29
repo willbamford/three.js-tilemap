@@ -109,7 +109,7 @@ Tilemap.prototype.setMap = function (map) {
     iv = Math.floor(tile / this.tileset.numOfCols);
     iu = tile - (tileset.numOfCols * iv);
 
-    v0 = 1 - (iv * (tileset.tileSizeV + 2 * tileset.spacingV)) - tileset.spacingV;
+    v0 = 1 - ((iv * (tileset.tileSizeV + 2 * tileset.spacingV)) + tileset.spacingV);
     u0 = iu * (tileset.tileSizeU + 2 * tileset.spacingU) + tileset.spacingU;
 
     v1 = v0 - tileset.tileSizeV;
