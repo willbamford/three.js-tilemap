@@ -26,8 +26,10 @@ module.exports = function (grunt) {
             dest: 'index.html'
           },
           {
-            src: 'images/tileset1.png',
-            dest: 'images/tileset1.png'
+            expand: true,
+            cwd: 'images',
+            src: ['**'],
+            dest: 'images'
           },
           {
             src: 'node_modules/stats.js/build/stats.min.js',
