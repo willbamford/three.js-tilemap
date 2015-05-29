@@ -32,7 +32,7 @@ scene.add(axisHelper);
 var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 5000);
 camera.position.z = 1000;
 
-var texture = THREE.ImageUtils.loadTexture('images/tileset1.png');
+var texture = THREE.ImageUtils.loadTexture('images/tileset1-spaced.png');
 
 texture.wrapS = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 texture.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
@@ -49,8 +49,11 @@ var tilemap = new Tilemap({
   tileset: {
     texture: texture,
     tileSize: 24,
-    width: 192,
-    height: 192
+    spacing: 1,
+    width: 256,
+    height: 256,
+    numOfCols: 8,
+    numOfRows: 8
   }
 });
 

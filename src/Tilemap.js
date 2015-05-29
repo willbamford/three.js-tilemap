@@ -13,11 +13,10 @@ var Tilemap = function (parameters) {
 
   var tileset = parameters.tileset;
 
-  tileset.numOfCols = tileset.width / tileset.tileSize;
-  tileset.numOfRows = tileset.height / tileset.tileSize;
-
   tileset.tileSizeU = tileset.tileSize / tileset.width;
   tileset.tileSizeV = tileset.tileSize / tileset.height;
+  tileset.spacingU = tileset.spacing / tileset.width;
+  tileset.spacingV = tileset.spacing / tileset.height;
 
   this.tileset = tileset;
 
@@ -93,10 +92,11 @@ var Tilemap = function (parameters) {
 
 Tilemap.prototype.setMap = function (map) {
 
-  var u0, v0, u1, v1, tile;
+  var iu, iv, u0, v0, u1, v1, tile;
   var offset8 = 0;
   var geometry = this.mesh.geometry;
   var uvs = geometry.attributes.uv.array;
+  var tileset = this.tileset;
 
   if (map.length !== this.numOfCells) {
     console.log('Error: map has wrong dimensions');
@@ -106,14 +106,14 @@ Tilemap.prototype.setMap = function (map) {
   for (var i = 0; i < map.length; i += 1) {
 
     tile = map[i];
-    v0 = Math.floor(tile / this.tileset.numOfCols);
-    u0 = tile - (this.tileset.numOfCols * v0);
+    iv = Math.floor(tile / this.tileset.numOfCols);
+    iu = tile - (tileset.numOfCols * iv);
 
-    v0 = 1 - v0 * this.tileset.tileSizeV;
-    u0 *= this.tileset.tileSizeU;
+    v0 = 1 - (iv * (tileset.tileSizeV + 2 * tileset.spacingV)) - tileset.spacingV;
+    u0 = iu * (tileset.tileSizeU + 2 * tileset.spacingU) + tileset.spacingU;
 
-    v1 = v0 - this.tileset.tileSizeV;
-    u1 = u0 + this.tileset.tileSizeU;
+    v1 = v0 - tileset.tileSizeV;
+    u1 = u0 + tileset.tileSizeU;
 
     uvs[offset8 + 0] = u0;
     uvs[offset8 + 1] = v0;
@@ -133,13 +133,13 @@ Tilemap.prototype.setMap = function (map) {
   geometry.attributes.uv.needsUpdate = true;
 };
 
-Tilemap.prototype.randomTileU = function () {
-  return this.tileset.tileSizeU * Math.floor(Math.random() * this.tileset.numOfCols);
-};
+// Tilemap.prototype.randomTileU = function () {
+//   return this.tileset.tileSizeU * Math.floor(Math.random() * this.tileset.numOfCols);
+// };
 
-Tilemap.prototype.randomTileV = function () {
-  return this.tileset.tileSizeV *
-    (this.tileset.numOfRows / 2 + Math.floor(Math.random() * (this.tileset.numOfRows / 2)));
-};
+// Tilemap.prototype.randomTileV = function () {
+//   return this.tileset.tileSizeV *
+//     (this.tileset.numOfRows / 2 + Math.floor(Math.random() * (this.tileset.numOfRows / 2)));
+// };
 
 window.Tilemap = Tilemap;
