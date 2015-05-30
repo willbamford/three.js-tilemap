@@ -26,6 +26,12 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
+// scene.add(new THREE.AmbientLight(0x0000ff));
+
+var light1 = new THREE.DirectionalLight(0xffffff, 1);
+light1.position.set(1, 1, 1);
+scene.add(light1);
+
 var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
@@ -118,8 +124,8 @@ function update() {
 
   // tilemap.randomiseTiles();
 
-  tilemap.mesh.rotation.x += delta * 0.0001;
-  tilemap.mesh.rotation.y += delta * 0.0002;
+  tilemap.mesh.rotation.x += delta * 0.0005;
+  tilemap.mesh.rotation.y += delta * 0.000;
 
   // for (var i = 0; i < geometry.colors.length; i += 1) {
   //   geometry.colors[i].setHSL(Math.random(), 1, 0.5);
@@ -142,8 +148,10 @@ function onResize(event) {
   renderer.setSize(w, h);
 }
 
-var renderer = new THREE.WebGLRenderer({antialias: true});
+var renderer = new THREE.WebGLRenderer({antialias: false});
 // renderer.setPixelRatio(window.devicePixelRatio || 1);
+renderer.gammaInput = true;
+renderer.gammaOutput = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 

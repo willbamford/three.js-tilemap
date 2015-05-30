@@ -22,7 +22,23 @@ var Tilemap = function (parameters) {
 
   var indices = new Uint16Array(this.numOfCells * 6);
   var vertices = new Float32Array(this.numOfCells * 4 * 3);
+  var normals = new Float32Array(this.numOfCells * 4 * 3);
   var uvs = new Float32Array(this.numOfCells * 4 * 2);
+  var colors = new Float32Array(this.numOfCells * 4 * 3);
+
+  // var color = new THREE.Color();
+
+  // color.setRGB(1, 0, 0);
+
+  for (var i = 0; i < normals.length; i += 3) {
+    normals[i + 0] = 0;
+    normals[i + 1] = 0;
+    normals[i + 2] = 1; // Z
+
+    colors[i + 0] = Math.random();
+    colors[i + 1] = Math.random();
+    colors[i + 2] = Math.random();
+  }
 
   var offset12 = 0;
   var offset6 = 0;
@@ -72,14 +88,15 @@ var Tilemap = function (parameters) {
   geometry.dynamic = true;
   geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
   geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
   geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-  // ... normal, color
+  geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-  var material = new THREE.MeshBasicMaterial({
-    map: tileset.texture
-    // side: THREE.FrontSide
-    // vertexColors: THREE.VertexColors
-    // color: 0x00ff00,
+  var material = new THREE.MeshPhongMaterial({
+    map: tileset.texture,
+    side: THREE.DoubleSide,
+    vertexColors: THREE.VertexColors
+    // color: 0x00ff00
     // shading: THREE.FlatShading,
     // wireframe: true
   });
