@@ -8,6 +8,9 @@ var Tilemap = function (parameters) {
   this.numOfCols = parameters.numOfCols;
   this.numOfRows = parameters.numOfRows;
   this.numOfCells = this.numOfCols * this.numOfRows;
+
+  console.log(this.numOfCells);
+
   this.width = this.tileSize * this.numOfCols;
   this.height = this.tileSize * this.numOfRows;
 
@@ -26,15 +29,15 @@ var Tilemap = function (parameters) {
   var uvs = new Float32Array(this.numOfCells * 4 * 2);
   var colors = new Float32Array(this.numOfCells * 4 * 3);
 
-  for (var i = 0; i < normals.length; i += 3) {
-    normals[i + 0] = 0;
-    normals[i + 1] = 0;
-    normals[i + 2] = 1; // Z
-
-    colors[i + 0] = Math.random();
-    colors[i + 1] = Math.random();
-    colors[i + 2] = Math.random();
-  }
+  // for (var i = 0; i < normals.length; i += 3) {
+  //   normals[i + 0] = 0;
+  //   normals[i + 1] = 0;
+  //   normals[i + 2] = 1; // Z
+  //
+  //   colors[i + 0] = Math.random();
+  //   colors[i + 1] = Math.random();
+  //   colors[i + 2] = Math.random();
+  // }
 
   var offset12 = 0;
   var offset6 = 0;
@@ -104,6 +107,44 @@ var Tilemap = function (parameters) {
   this.mesh = mesh;
 }
 
+Tilemap.prototype.fill = function (tile) {
+
+  var map = [];
+  for (var i = 0; i < this.numOfCells; i += 1)
+    map.push(tile);
+
+  this.setMap(map);
+};
+
+// Tilemap.prototype.setTile = function (tile, x, y) {
+//
+//   var tileset = this.tileset;
+//   var geometry = this.mesh.geometry;
+//   var uvs = geometry.attributes.uv.array;
+//   var iv = Math.floor(tile / tileset.numOfCols);
+//   var iu = tile - (tileset.numOfCols * iv);
+//   var offset = 8 * (y * tileset.numOfCols + x);
+//
+//   v0 = 1 - ((iv * (tileset.tileSizeV + 2 * tileset.spacingV)) + tileset.spacingV);
+//   u0 = iu * (tileset.tileSizeU + 2 * tileset.spacingU) + tileset.spacingU;
+//
+//   v1 = v0 - tileset.tileSizeV;
+//   u1 = u0 + tileset.tileSizeU;
+//
+//   uvs[offset + 0] = u0;
+//   uvs[offset + 1] = v0;
+//
+//   uvs[offset + 2] = u1;
+//   uvs[offset + 3] = v0;
+//
+//   uvs[offset + 4] = u0;
+//   uvs[offset + 5] = v1;
+//
+//   uvs[offset + 6] = u1
+//   uvs[offset + 7] = v1;
+// };
+
+// TODO: dedupe code from above
 Tilemap.prototype.setMap = function (map) {
 
   var iu, iv, u0, v0, u1, v1, tile;
@@ -120,7 +161,7 @@ Tilemap.prototype.setMap = function (map) {
   for (var i = 0; i < map.length; i += 1) {
 
     tile = map[i];
-    iv = Math.floor(tile / this.tileset.numOfCols);
+    iv = Math.floor(tile / tileset.numOfCols);
     iu = tile - (tileset.numOfCols * iv);
 
     v0 = 1 - ((iv * (tileset.tileSizeV + 2 * tileset.spacingV)) + tileset.spacingV);
