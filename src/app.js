@@ -26,17 +26,18 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
-// scene.add(new THREE.AmbientLight(0x0000ff));
-
-var light1 = new THREE.DirectionalLight(0xffffff, 1);
-light1.position.set(1, 1, 1);
-scene.add(light1);
+scene.add(new THREE.AmbientLight(0xffffff));
+// var light = new THREE.DirectionalLight(0xffffff, 1);
+// light.position.set(1, 1, 1);
+// scene.add(light);
 
 var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
 var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 5000);
-camera.position.z = 1000;
+camera.position.z = 800;
+
+window.camera = camera;
 
 var texture = THREE.ImageUtils.loadTexture('images/tileset1-spaced.png');
 
@@ -64,45 +65,18 @@ var tilemap = new Tilemap({
 });
 
 var map = [1.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.3,6.4,6.4,6.4,6.4,1.3,0,6,0,0,0,0,0,0,6,0,0,0,0,0,2.3,6.4,6.4,6.4,2.3,4.3,4.3,4.3,4.3,4.3,0,0,1.3,1.3,5.4,5.4,1.3,1.3,0,0,0,0,2.1,3.1,3.1,3.1,3.1,4.1,0,0,0,0,2.3,5.4,5.4,5.4,2.3,0,0,0,0,0,0,0,0,1.3,1.3,1.3,1.3,0,0,0,0,0,5.1,5.1,5.1,5.1,5.1,5.1,0,6,0,0,2.3,5.4,5.4,5.4,2.3,0,0,0,0,0,0,0,0,7.7,0,1.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.3,2.3,2.3,2.3,2.3,0,0,6,0,0,0,0,0,7.7,0,1.3,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7.7,6,1.3,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,7.7,0,1.3,4,0,6.1,2.2,0.2,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,4,0,7.7,0,1.3,5.2,5.7,1.7,1.7,6.7,0,0,6.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2,7.1,7.1,0,4,0,7.7,0,1.3,1.3,2.6,3.6,3.6,4.6,0,0,6.2,0,0,0,0,0,0,0,0,0,2.1,3.1,3.1,4.1,0,0,0.3,0.3,0.3,0,0.2,0,7.7,6,0,0,2.6,1.4,3.6,4.6,0,0,6.2,0,0,4,0,0,0,0,0,0,5.1,5.1,5.1,5.1,0,0,0,1.6,0,0,0,0,7.7,0,0,0,2.6,3.6,2.4,4.6,0,0,6.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,1.6,0,0,0,0,7.7,4.3,4.3,4.3,2.6,3.6,1.4,4.6,0.1,0,6.2,0,0,3.2,3.2,4.2,4.2,0,0,0,0,0,0,0,0,0,0,1.6,0,0,4,0.2,7.7,0,6,0,2.6,2.4,3.6,4.6,7.2,7.2,7.2,0,0,3.2,1.2,7.1,4.2,0,5.2,5.2,0,0,0,0,0,0,0,1.6,0,0,0,0,7.7,0,0,0,2.6,1.4,3.6,4.6,1.5,1.5,1.5,0,3.7,6.6,6.6,6.6,6.6,6.6,6.6,6.6,4.7,0,0,0,0,0,0,1.6,0,0.2,0,0,7.7,0,0,0,2.6,3.6,2.4,4.6,0,4,0,0,5.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,7.5,0,0,1.2,0,1.2,0,1.6,6,0,0,0,7.7,4,0,0,2.6,3.6,1.4,4.6,6.6,4.7,0,0,5.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,7.5,0.6,0.6,0.6,0.6,0.6,0.6,1.6,0,0.5,0.5,0.5,0.4,0,0,0,2.6,2.4,3.6,4.6,6.5,7.5,4,0,5.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,7.5,0,0,0,0,0,0,1.6,0,7.4,7.4,7.4,0.4,0,4,0,2.6,1.4,3.6,4.6,6.5,7.5,0,0,5.5,6.5,6.5,6.5,6.5,6.5,6.5,6.5,7.5,0,0,0,0,0,0,1.6,0,7.4,7.4,7.4,0.4,0,0,0,2.6,3.6,3.6,4.6,6.5,7.5,0,0,5.5,0.3,1.4,0.3,6.5,6.5,6.5,6.5,7.5,0,0,0,0,0,0,1.6,3,7.4,7.4,7.4,0.4,7,7,7,2.6,3.6,3.6,4.6,6.5,7.5,1.2,1.1,5.5,0.3,0.3,0.3,6.5,6.5,6.5,6.5,7.5,1.1,1.1,1.1,6.1,0.1,2,1.6,1,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6,6.6];
-
 map = mapConvertor(map);
 
-// console.dir(map);
-
 tilemap.setMap(map);
+
+// var plane = new THREE.PlaneGeometry(400, 1200, 1, 1);
+// var mesh = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 'red'}));
+// mesh.position.z = -200;
+// scene.add(mesh);
 
 scene.add(tilemap.mesh);
 
 window.tilemap = tilemap;
-
-// var geometry = new THREE.Geometry();
-// var colors = [];
-// var sprite = THREE.ImageUtils.loadTexture('led.png');
-
-// for (var i = 0; i < 10000; i += 1) {
-//   var vertex = new THREE.Vector3();
-//   vertex.x = 2000 * Math.random() - 1000;
-//   vertex.y = 2000 * Math.random() - 1000;
-//   vertex.z = 2000 * Math.random() - 1000;
-//   geometry.vertices.push(vertex);
-
-//   colors[i] = new THREE.Color(0xffffff);
-//   colors[i].setHSL(Math.random(), 1, 0.5);
-// }
-
-// geometry.colors = colors;
-
-// var material = new THREE.PointCloudMaterial({
-//   size: 85,
-//   map: sprite,
-//   blending: THREE.AdditiveBlending,
-//   vertexColors: THREE.VertexColors,
-//   depthTest: false,
-//   transparent: true
-// });
-
-// var particles = new THREE.PointCloud(geometry, material);
-// scene.add(particles);
 
 var now;
 var before;
@@ -113,7 +87,7 @@ function update() {
 
   if (!running)
     return;
-  
+
   requestAnimationFrame(update);
 
   stats.begin();
@@ -122,18 +96,10 @@ function update() {
   delta = before ? now - before : 0;
   before = now;
 
-  // tilemap.randomiseTiles();
+  // tilemap.mesh.position.z -= 1;
 
-  tilemap.mesh.rotation.x += delta * 0.0005;
-  tilemap.mesh.rotation.y += delta * 0.000;
-
-  // for (var i = 0; i < geometry.colors.length; i += 1) {
-  //   geometry.colors[i].setHSL(Math.random(), 1, 0.5);
-  // }
-  // geometry.colorsNeedUpdate = true;
-
-  // particles.rotation.x += delta * 0.0001;
-  // particles.rotation.y += delta * 0.0002;
+  // tilemap.mesh.rotation.x += delta * 0.0005;
+  // tilemap.mesh.rotation.y += delta * 0.000;
 
   renderer.render(scene, camera);
 
@@ -149,13 +115,19 @@ function onResize(event) {
 }
 
 var renderer = new THREE.WebGLRenderer({antialias: false});
-// renderer.setPixelRatio(window.devicePixelRatio || 1);
-renderer.gammaInput = true;
-renderer.gammaOutput = true;
+renderer.setPixelRatio(window.devicePixelRatio || 1);
+// renderer.gammaInput = true;
+// renderer.gammaOutput = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener('resize', onResize, false);
+
+
+var distance = 1000;
+var frustumHeight = 2.0 * distance * Math.tan(Math.PI * camera.fov / 180 * 0.5);
+console.log(frustumHeight);
 
 renderer.domElement.addEventListener('mousedown', function () {
   running = !running;

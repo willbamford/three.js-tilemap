@@ -26,10 +26,6 @@ var Tilemap = function (parameters) {
   var uvs = new Float32Array(this.numOfCells * 4 * 2);
   var colors = new Float32Array(this.numOfCells * 4 * 3);
 
-  // var color = new THREE.Color();
-
-  // color.setRGB(1, 0, 0);
-
   for (var i = 0; i < normals.length; i += 3) {
     normals[i + 0] = 0;
     normals[i + 1] = 0;
@@ -88,23 +84,24 @@ var Tilemap = function (parameters) {
   geometry.dynamic = true;
   geometry.addAttribute('index', new THREE.BufferAttribute(indices, 1));
   geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-  geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
+  // geometry.addAttribute('normal', new THREE.BufferAttribute(normals, 3));
   geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-  geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
+  // geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   var material = new THREE.MeshPhongMaterial({
     map: tileset.texture,
-    side: THREE.DoubleSide,
-    vertexColors: THREE.VertexColors
+    side: THREE.DoubleSide
+    // vertexColors: THREE.VertexColors
     // color: 0x00ff00
     // shading: THREE.FlatShading,
-    // wireframe: true
+    // blending: THREE.AdditiveBlending,
+    // wireframe: true,
+    // depthTest: false,
+    // transparent: true
   });
   var mesh = new THREE.Mesh(geometry, material);
 
   this.mesh = mesh;
-
-  // this.randomiseTiles();
 }
 
 Tilemap.prototype.setMap = function (map) {
@@ -149,14 +146,5 @@ Tilemap.prototype.setMap = function (map) {
 
   geometry.attributes.uv.needsUpdate = true;
 };
-
-// Tilemap.prototype.randomTileU = function () {
-//   return this.tileset.tileSizeU * Math.floor(Math.random() * this.tileset.numOfCols);
-// };
-
-// Tilemap.prototype.randomTileV = function () {
-//   return this.tileset.tileSizeV *
-//     (this.tileset.numOfRows / 2 + Math.floor(Math.random() * (this.tileset.numOfRows / 2)));
-// };
 
 window.Tilemap = Tilemap;
