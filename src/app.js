@@ -26,6 +26,17 @@ var stats = initStats();
 
 var scene = new THREE.Scene();
 
+var CAMERA_FOV = 45;
+var CAMERA_DISTANCE = 800;
+var CAMERA_NEAR = 1;
+var CAMERA_FAR = 5000;
+
+var FRUSTUM_HEIGHT_AT_ORIGIN = 2 * CAMERA_DISTANCE * Math.tan(Math.PI / 180 * CAMERA_FOV * 0.5);
+
+// var distance = 1000;
+// var frustumHeight = 2.0 * distance * Math.tan(Math.PI * camera.fov / 180 * 0.5);
+// console.log(frustumHeight);
+
 scene.add(new THREE.AmbientLight(0xffffff));
 // var light = new THREE.DirectionalLight(0xffffff, 1);
 // light.position.set(1, 1, 1);
@@ -34,10 +45,12 @@ scene.add(new THREE.AmbientLight(0xffffff));
 var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
-var camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 5000);
-camera.position.z = 800;
-
-window.camera = camera;
+var camera = new THREE.PerspectiveCamera(
+  CAMERA_FOV,
+  window.innerWidth / window.innerHeight,
+  CAMERA_NEAR, CAMERA_FAR
+);
+camera.position.z = CAMERA_DISTANCE;
 
 var texture = THREE.ImageUtils.loadTexture('images/leds.png');
 
@@ -47,12 +60,13 @@ texture.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 texture.magFilter = THREE.LinearFilter;             // THREE.NearestFilter;
 texture.minFilter = THREE.LinearMipMapLinearFilter; // THREE.NearestFilter;
 
-var tilesetNumOfCols = 1024 / 32;
+var numOfCols = 80;
+var numOfRows = 30;
 
 var tilemap = new Tilemap({
-  tileSize: 16,
-  numOfCols: 40,
-  numOfRows: 20,
+  tileSize: FRUSTUM_HEIGHT_AT_ORIGIN / numOfRows,
+  numOfCols: numOfCols,
+  numOfRows: numOfRows,
   tileset: {
     texture: texture,
     tileSize: 32,
@@ -64,7 +78,9 @@ var tilemap = new Tilemap({
   }
 });
 
-tilemap.fill(8 * 2 - 1);
+tilemap.fill(8 * 1 - 1);
+
+// tilemap.setTile(8 * 5 - 1, 2, 2);
 
 // var plane = new THREE.PlaneGeometry(400, 1200, 1, 1);
 // var mesh = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 'red'}));
@@ -95,7 +111,7 @@ function update() {
 
   // tilemap.mesh.position.z -= 1;
 
-  // tilemap.mesh.rotation.x += delta * 0.0005;
+  tilemap.mesh.rotation.x += delta * 0.001;
   // tilemap.mesh.rotation.y += delta * 0.000;
 
   renderer.render(scene, camera);
@@ -120,10 +136,6 @@ renderer.setClearColor(0x000000);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener('resize', onResize, false);
-
-// var distance = 1000;
-// var frustumHeight = 2.0 * distance * Math.tan(Math.PI * camera.fov / 180 * 0.5);
-// console.log(frustumHeight);
 
 renderer.domElement.addEventListener('mousedown', function () {
   running = !running;
