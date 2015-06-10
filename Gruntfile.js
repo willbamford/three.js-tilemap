@@ -41,6 +41,24 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
+            cwd: 'three.js/examples/js/libs',
+            src: ['**'],
+            dest: 'three.js/examples/js/libs'
+          },
+          {
+            expand: true,
+            cwd: 'three.js/examples/js/postprocessing',
+            src: ['**'],
+            dest: 'three.js/examples/js/postprocessing'
+          },
+          {
+            expand: true,
+            cwd: 'three.js/examples/js/shaders',
+            src: ['**'],
+            dest: 'three.js/examples/js/shaders'
+          },
+          {
+            expand: true,
             cwd: 'src',
             src: ['**'],
             dest: 'src'
