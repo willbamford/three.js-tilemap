@@ -178,6 +178,9 @@ glowComposer.addPass(brightnessPass);
 glowComposer.addPass(hBlurPass);
 glowComposer.addPass(vBlurPass);
 
+hBlurPass.uniforms['h'].value = 1 / window.innerWidth * 2;
+vBlurPass.uniforms['v'].value = 1  / window.innerHeight * 2;
+
 // Blend of A + B
 
 var blendPass = new THREE.ShaderPass(THREE.AdditiveBlendShader);
@@ -186,6 +189,7 @@ blendPass.uniforms['tAdd'].value = glowComposer.renderTarget1;
 var blendComposer = new THREE.EffectComposer(renderer);
 blendComposer.addPass(blendPass);
 blendPass.renderToScreen = true;
+blendPass.uniforms['amount'].value = 1;
 
 renderer.domElement.addEventListener('mousedown', function () {
   running = !running;
