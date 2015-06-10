@@ -22,11 +22,12 @@ var Tilemap = function (parameters) {
 
   this.tileset = tileset;
 
-  var indices = new Uint16Array(this.numOfCells * 6);
+  var indices = new Uint16Array(this.numOfCells * 6); /* Uint16Array | Uint32Array */
   var vertices = new Float32Array(this.numOfCells * 4 * 3);
   var normals = new Float32Array(this.numOfCells * 4 * 3);
   var uvs = new Float32Array(this.numOfCells * 4 * 2);
   var colors = new Float32Array(this.numOfCells * 4 * 3);
+  var color = new THREE.Color();
 
   var r, g, b;
 
@@ -36,9 +37,11 @@ var Tilemap = function (parameters) {
     normals[i + 1] = normals[i + 4] = normals[i + 7] = normals[i + 10] = 0;
     normals[i + 2] = normals[i + 5] = normals[i + 8] = normals[i + 11] = 1;
 
-    colors[i + 0] = colors[i + 3] = colors[i + 6] = colors[i + 9 ] = Math.random();
-    colors[i + 1] = colors[i + 4] = colors[i + 7] = colors[i + 10] = Math.random();
-    colors[i + 2] = colors[i + 5] = colors[i + 8] = colors[i + 11] = Math.random();
+    color.setHSL(Math.random(), Math.random(), 0.5);
+
+    colors[i + 0] = colors[i + 3] = colors[i + 6] = colors[i + 9 ] = color.r;
+    colors[i + 1] = colors[i + 4] = colors[i + 7] = colors[i + 10] = color.g;
+    colors[i + 2] = colors[i + 5] = colors[i + 8] = colors[i + 11] = color.b;
   }
 
   var offset12 = 0;
@@ -93,17 +96,22 @@ var Tilemap = function (parameters) {
   geometry.addAttribute('uv', new THREE.BufferAttribute(uvs, 2));
   geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-  var material = new THREE.MeshPhongMaterial({
+  var material = new THREE.MeshBasicMaterial({
     map: tileset.texture,
     side: THREE.DoubleSide,
-    vertexColors: THREE.VertexColors
-    // color: 0x00ff00
+    vertexColors: THREE.VertexColors,
+    // color: 0xffffff
     // shading: THREE.FlatShading,
     // blending: THREE.AdditiveBlending,
     // wireframe: true,
+    // opacity: 1.0,
     // depthTest: false,
     // transparent: true
   });
+
+  // ( { color: 0x0000ff,  transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending } );
+
+
   var mesh = new THREE.Mesh(geometry, material);
 
   this.mesh = mesh;

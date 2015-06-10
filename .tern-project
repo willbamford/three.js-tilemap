@@ -6,7 +6,8 @@
   ],
   "loadEagerly": [
     "src/**/*.js",
-    "three.js/src/**/*.js"
+    "three.js/src/**/*.js",
+    "three.js/examples/js/**/*.js"
   ],
   "plugins": {
     "complete_strings": {},

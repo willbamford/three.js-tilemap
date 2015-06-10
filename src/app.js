@@ -42,6 +42,8 @@ scene.add(new THREE.AmbientLight(0xffffff));
 // light.position.set(1, 1, 1);
 // scene.add(light);
 
+// scene.fog = new THREE.FogExp2(0x000104, 0.0000675);
+
 var axisHelper = new THREE.AxisHelper(50);
 scene.add(axisHelper);
 
@@ -60,8 +62,10 @@ texture.wrapT = THREE.ClampToEdgeWrapping; // THREE.Repeat;
 texture.magFilter = THREE.LinearFilter;             // THREE.NearestFilter;
 texture.minFilter = THREE.LinearMipMapLinearFilter; // THREE.NearestFilter;
 
-var numOfCols = 80;
-var numOfRows = 30;
+var numOfRows = 50;
+var numOfCols = Math.ceil(numOfRows * window.innerWidth / window.innerHeight);
+
+console.log('Rows: ' + numOfRows + ', columns: ' + numOfCols + ', total: ' + (numOfRows * numOfCols));
 
 var tilemap = new Tilemap({
   tileSize: FRUSTUM_HEIGHT_AT_ORIGIN / numOfRows,
@@ -109,12 +113,12 @@ function update() {
   delta = before ? now - before : 0;
   before = now;
 
-  // tilemap.mesh.position.z -= 1;
+  tilemap.mesh.rotation.x += delta * 0.0001;
+  tilemap.mesh.rotation.y += delta * 0.0002;
 
-  tilemap.mesh.rotation.x += delta * 0.001;
-  // tilemap.mesh.rotation.y += delta * 0.000;
-
-  renderer.render(scene, camera);
+  baseComposer.render(delta);
+  glowComposer.render(delta);
+  blendComposer.render(delta);
 
   stats.end();
 }
@@ -125,17 +129,63 @@ function onResize(event) {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
+
+  composer.reset();
+	effectFocus.uniforms['screenWidth'].value = window.innerWidth;
+	effectFocus.uniforms['screenHeight'].value = window.innerHeight;
 }
 
 var renderer = new THREE.WebGLRenderer({antialias: false});
 renderer.setPixelRatio(window.devicePixelRatio || 1);
-// renderer.gammaInput = true;
-// renderer.gammaOutput = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000);
+renderer.setClearColor(0x000000, 1);
 document.body.appendChild(renderer.domElement);
 
 window.addEventListener('resize', onResize, false);
+
+// Begin: Post-processing
+
+var renderTargetOpts = {
+  minFilter: THREE.LinearFilter,
+  magFilter: THREE.LinearFilter,
+  format: THREE.RGBFormat,
+  stencilBufer: false
+};
+
+// A: Base render target
+
+var baseRenderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetOpts);
+var baseComposer = new THREE.EffectComposer(renderer, baseRenderTarget);
+
+var renderPass = new THREE.RenderPass(scene, camera);
+var brightnessPass = new THREE.ShaderPass(THREE.BrightnessShader);
+brightnessPass.uniforms['amount'].value = 1.0;
+// brightnessPass.renderToScreen = true;
+
+baseComposer.addPass(renderPass);
+baseComposer.addPass(brightnessPass);
+
+// B: Glow render target
+
+var glowRenderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetOpts);
+var glowComposer = new THREE.EffectComposer(renderer, glowRenderTarget);
+
+var hBlurPass = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+var vBlurPass = new THREE.ShaderPass(THREE.VerticalBlurShader);
+
+glowComposer.addPass(renderPass);
+glowComposer.addPass(brightnessPass);
+glowComposer.addPass(hBlurPass);
+glowComposer.addPass(vBlurPass);
+
+// Blend of A + B
+
+var blendPass = new THREE.ShaderPass(THREE.AdditiveBlendShader);
+blendPass.uniforms['tBase'].value = baseComposer.renderTarget1;
+blendPass.uniforms['tAdd'].value = glowComposer.renderTarget1;
+var blendComposer = new THREE.EffectComposer(renderer);
+blendComposer.addPass(blendPass);
+blendPass.renderToScreen = true;
 
 renderer.domElement.addEventListener('mousedown', function () {
   running = !running;
